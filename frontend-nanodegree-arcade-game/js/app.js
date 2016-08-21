@@ -47,13 +47,20 @@ Enemy.prototype.render = function() {
 * @constructor
 */
 
-var Gem = function(){
+var Gem = function(_gemType){
       // coordinates to be added to handle the user inputs
     this.hideOffsets = {
         'topX' : -101,
         'topY' : -83,
     };
-    this.sprite = 'images/Gem Blue.png';
+    // Default to Blue Gem
+    this.gemType = _gemType || 'blueGem';
+    _spriteDict = {
+      'blueGem' : 'images/Gem Blue.png',
+      'greenGem' : 'images/Gem Green.png',
+      'orangeGem' : 'images/Gem Orange.png'
+    };
+    this.sprite = _spriteDict[this.gemType];
       // Initial variables to hold the size and step of the enemy positions
     var _xOffset = 0;
     var _yOffset = 60;
@@ -63,7 +70,6 @@ var Gem = function(){
     // Random initialization of the x and y value to be placed anywhere on the three block paths
     this.rowNum = (Math.floor(5 * Math.random(Date.now())));
     this.colNum = (Math.floor(3 * Math.random(Date.now())));
-    console.log(this.rowNum, this.colNum);
     this.x = _xOffset + ( _rowWidth * this.rowNum);
     this.y = _yOffset + ( _rowHeight * this.colNum);
 }
@@ -86,7 +92,7 @@ Gem.prototype.remove = function() {
 * @constructor
 */
 
-var PlayerScore = function(_scoreDict){
+var PlayerScore = function(_scoreValDict){
     // add score values
     this.score = 0;
     this.scoreSetup = {
@@ -97,15 +103,15 @@ var PlayerScore = function(_scoreDict){
       textX: 10,
       textY: 50
     };
-    _scoreDict = _scoreDict || {};
-    this.scoreDict = {
-      finishVal : _scoreDict.finishVal || 5,
-      starVal: _scoreDict.starVal || 5,
-      blueGemVal: _scoreDict.blueGemVal || 10,
-      greenGemVal: _scoreDict.greenGemVal || 15,
-      orangeGemVal: _scoreDict.orangeGemVal || 25,
-      collisionVal: _scoreDict.collisionVal || -5,
-      offBoundVal: _scoreDict.offBoundVal || -1
+    _scoreValDict = _scoreValDict || {};
+    this.scoreValDict = {
+      finish : _scoreValDict.finish || 5,
+      star: _scoreValDict.star || 5,
+      blueGem: _scoreValDict.blueGem || 10,
+      greenGem: _scoreValDict.greenGem || 15,
+      orangeGem: _scoreValDict.orangeGem || 25,
+      collision: _scoreValDict.collision || -5,
+      offBound: _scoreValDict.offBound || -1
     };
   
 };
@@ -172,13 +178,13 @@ Player.prototype.update = function(){
     // check if the enemy is the collision range of the player
     allEnemies.forEach(function(enemy) {
         if((((enemy.x + self.collisionRange.x >= self.x) && (enemy.x  - self.x < self.collisionRange.x)) ) && ((self.y >= enemy.y) && (self.y - enemy.y < self.collisionRange.y))){
-            self.scoreObj.updateScore(self.scoreObj.scoreDict.collisionVal);
+            self.scoreObj.updateScore(self.scoreObj.scoreValDict.collision);
             self.reset();
         }
     });
     allGems.forEach(function(gem){
         if((((gem.x + self.collisionRange.x >= self.x) && (gem.x  - self.x < self.collisionRange.x)) ) && ((self.y >= gem.y) && (self.y - gem.y < self.collisionRange.y))){
-            self.scoreObj.updateScore(self.scoreObj.scoreDict.blueGemVal);
+            self.scoreObj.updateScore(self.scoreObj.scoreValDict[gem.gemType]);
             gem.remove();
         }
     });
@@ -209,9 +215,9 @@ Player.prototype.checkLimits = function(keyCode){
     var _tempY = this.y + this.offsets[keyCode].y;
     if(_tempX < this.limits.leftX || _tempX > this.limits.rightX || _tempY < this.limits.topY || _tempY > this.limits.bottomY){
        if(_tempY <= this.limits.topY){
-          this.scoreObj.updateScore(this.scoreObj.scoreDict.finishVal);
+          this.scoreObj.updateScore(this.scoreObj.scoreValDict.finish);
         }else{
-          this.scoreObj.updateScore(this.scoreObj.scoreDict.offBoundVal);
+          this.scoreObj.updateScore(this.scoreObj.scoreValDict.offBound);
         }
         return false;
     }
@@ -251,18 +257,53 @@ document.addEventListener('keyup', function(e) {
 });
 
 var allGems = [];
-// Number of Gems: 2
-var numberOfGems = 2;
-var j = numberOfGems; 
+// Number of Blue Gems: 2
+// Number of Green Gems: 1
+// Number of Orange Gems: 1
+
+var numberOfBlueGems = 2;
+var numberOfGreenGems = 1;
+var numberOfOrangeGems = 1;
+
+var j = numberOfBlueGems; 
 while(j > 0){
     var _valid = true;
-    var _gem = new Gem();
+    var _gem = new Gem('blueGem');
     allGems.forEach(function(gem){
       if((gem.rowNum == _gem.rowNum) && (gem.colNum == _gem.colNum)){
         _valid = false;
       }
     });
-    console.log(j,_valid);
+    if(_valid){
+      allGems.push(_gem);
+      j--;
+    }
+}
+
+j = numberOfGreenGems; 
+while(j > 0){
+    var _valid = true;
+    var _gem = new Gem('greenGem');
+    allGems.forEach(function(gem){
+      if((gem.rowNum == _gem.rowNum) && (gem.colNum == _gem.colNum)){
+        _valid = false;
+      }
+    });
+    if(_valid){
+      allGems.push(_gem);
+      j--;
+    }
+}
+
+j = numberOfOrangeGems; 
+while(j > 0){
+    var _valid = true;
+    var _gem = new Gem('orangeGem');
+    allGems.forEach(function(gem){
+      if((gem.rowNum == _gem.rowNum) && (gem.colNum == _gem.colNum)){
+        _valid = false;
+      }
+    });
     if(_valid){
       allGems.push(_gem);
       j--;

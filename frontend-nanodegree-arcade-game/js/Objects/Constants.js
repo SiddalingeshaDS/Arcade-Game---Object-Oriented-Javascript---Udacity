@@ -58,6 +58,26 @@ CONSTANTS = function(){
       'SPRITE_IMG_Y': 130,
 
     },
+    // Game Objects constants
+    'GAME_OBJECTS': {
+      'HIDE_OFFSETS': {
+        'TOP_X': -101,
+        'TOP_Y': -83
+      },
+      'DEFAULT_OBJ_TYPE': 'blueGem',
+      'SPRITE_DICT': {
+        'blueGem' : 'images/Gem Blue.png',
+        'greenGem' : 'images/Gem Green.png',
+        'orangeGem' : 'images/Gem Orange.png',
+        'rock': 'images/Rock.png'
+      },
+      'X_INITIAL_OFFSET': 0,
+      'Y_INITIAL_OFFSET': 60,
+      'ROW_HEIGHT': 83,
+      'ROW_WIDTH': 101,
+      'NUMBER_OF_ROWS': 5,
+      'NUMBER_OF_COLS': 3
+    },
     // Enemy Constants
     'ENEMY': {
       'CANVAS_WIDTH': 505,

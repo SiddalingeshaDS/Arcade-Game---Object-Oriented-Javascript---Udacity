@@ -4,29 +4,29 @@
 */
 
 var GameObject = function(_objType){
+    if(!CONSTANTS){
+      return;
+    }
       // coordinates to be added to handle the user inputs
     this.hideOffsets = {
-        'topX' : -101,
-        'topY' : -83,
+        'topX' : CONSTANTS.GAME_OBJECTS.HIDE_OFFSETS.TOP_X,
+        'topY' : CONSTANTS.GAME_OBJECTS.HIDE_OFFSETS.TOP_Y,
     };
     // Default to Blue Gem
-    this.objType = _objType || 'blueGem';
-    var _spriteDict = {
-      'blueGem' : 'images/Gem Blue.png',
-      'greenGem' : 'images/Gem Green.png',
-      'orangeGem' : 'images/Gem Orange.png',
-      'rock': 'images/Rock.png'
-    };
+    this.objType = _objType || CONSTANTS.GAME_OBJECTS.DEFAULT_OBJ_TYPE;
+  
+    var _spriteDict = CONSTANTS.GAME_OBJECTS.SPRITE_DICT;
+  
     this.sprite = _spriteDict[this.objType];
       // Initial variables to hold the size and step of the game object positions
-    var _xOffset = 0;
-    var _yOffset = 60;
-    var _rowHeight = 83; // rowHeight of the blocks where the game objects can be placed
-    var _rowWidth = 101; // rowHeight of the blocks where the game objects can be placed
+    var _xOffset = CONSTANTS.GAME_OBJECTS.X_INITIAL_OFFSET;
+    var _yOffset = CONSTANTS.GAME_OBJECTS.Y_INITIAL_OFFSET;
+    var _rowHeight = CONSTANTS.GAME_OBJECTS.ROW_HEIGHT; // rowHeight of the blocks where the game objects can be placed
+    var _rowWidth = CONSTANTS.GAME_OBJECTS.ROW_WIDTH; // rowWidth of the blocks where the game objects can be placed
 
     // Random initialization of the x and y value to be placed anywhere on the three block paths
-    this.rowNum = (Math.floor(5 * Math.random(Date.now())));
-    this.colNum = (Math.floor(3 * Math.random(Date.now())));
+    this.rowNum = (Math.floor(CONSTANTS.GAME_OBJECTS.NUMBER_OF_ROWS * Math.random(Date.now())));
+    this.colNum = (Math.floor(CONSTANTS.GAME_OBJECTS.NUMBER_OF_COLS * Math.random(Date.now())));
     this.x = _xOffset + ( _rowWidth * this.rowNum);
     this.y = _yOffset + ( _rowHeight * this.colNum);
 }

@@ -148,17 +148,18 @@ var Engine = (function(global) {
      * on your enemy and player entities within app.js
      */
     function renderEntities() {
-        /* Loop through all of the objects within the allEnemies array and call
+        /* Loop through all of the objects within the allEnemies, allObjects array and call
          * the render function you have defined.
          */
+         allGameObjects.forEach(function(gameObj) {
+            gameObj.render();
+        });
+      
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
 
         player.render();
-         allGameObjects.forEach(function(gameObj) {
-            gameObj.render();
-        });
     }
 
     /* This function does nothing but it could have been a good place to

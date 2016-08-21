@@ -52,8 +52,7 @@ var PlayerLevel = function(){
 PlayerLevel.prototype.render = function(){
     scoreCtx.clearRect(252, 0, this.levelRenderSetup.canvasWidth, this.levelRenderSetup.canvasHeight);
     scoreCtx.font = this.levelRenderSetup.font;
-    scoreCtx.fillText(this.levelRenderSetup.text + this.level,this.levelRenderSetup.textX,this.levelRenderSetup.textY);
-    scoreCtx.fillText(this.levelRenderSetup.text + this.level,this.levelRenderSetup.textX,this.levelRenderSetup.textY);
+    scoreCtx.fillText(this.levelRenderSetup.text + parseInt(this.level + 1),this.levelRenderSetup.textX,this.levelRenderSetup.textY);
 };
 
 

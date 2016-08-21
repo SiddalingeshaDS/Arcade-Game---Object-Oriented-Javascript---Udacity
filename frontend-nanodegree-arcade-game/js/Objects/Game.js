@@ -35,6 +35,13 @@ var Game = function() {
     // initialize the postions 
     this.x = this.initialPositions.x;
     this.y = this.initialPositions.y;
+    
+    this.gameRenderSetup = {
+        font: "22px Arial",
+        text: "Select the player and Hit Enter to Start the Game!",
+        textX: 10,
+        textY: 100
+      };
   
     this.sprite = 'images/Selector.png';  
   
@@ -64,6 +71,10 @@ Game.prototype.render = function() {
     }
     // render the selector image to highlight the selected player
     ctx.drawImage(Resources.get(this.sprite), this.x, (3 * 83) - 120);
+    ctx.font = this.gameRenderSetup.font;
+    ctx.fillText(this.gameRenderSetup.text,this.gameRenderSetup.textX,this.gameRenderSetup.textY);
+    ctx.fillText(this.gameRenderSetup.text,this.gameRenderSetup.textX,this.gameRenderSetup.textY);
+
     renderPlayers();
     ctx.stroke();
 };

@@ -43,29 +43,30 @@ Enemy.prototype.render = function() {
 //---------------------------------------------------
 
 /**
-* @description Represents a Gem
+* @description Represents a GameObject that will be drawn on the path => Gems, Rock, etc
 * @constructor
 */
 
-var Gem = function(_gemType){
+var GameObject = function(_objType){
       // coordinates to be added to handle the user inputs
     this.hideOffsets = {
         'topX' : -101,
         'topY' : -83,
     };
     // Default to Blue Gem
-    this.gemType = _gemType || 'blueGem';
+    this.objType = _objType || 'blueGem';
     _spriteDict = {
       'blueGem' : 'images/Gem Blue.png',
       'greenGem' : 'images/Gem Green.png',
-      'orangeGem' : 'images/Gem Orange.png'
+      'orangeGem' : 'images/Gem Orange.png',
+      'rock': 'images/Rock.png'
     };
-    this.sprite = _spriteDict[this.gemType];
-      // Initial variables to hold the size and step of the enemy positions
+    this.sprite = _spriteDict[this.objType];
+      // Initial variables to hold the size and step of the game object positions
     var _xOffset = 0;
     var _yOffset = 60;
-    var _rowHeight = 83; // rowHeight of the blocks where the enemies can be placed
-    var _rowWidth = 101; // rowHeight of the blocks where the enemies can be placed
+    var _rowHeight = 83; // rowHeight of the blocks where the game objects can be placed
+    var _rowWidth = 101; // rowHeight of the blocks where the game objects can be placed
 
     // Random initialization of the x and y value to be placed anywhere on the three block paths
     this.rowNum = (Math.floor(5 * Math.random(Date.now())));
@@ -74,13 +75,13 @@ var Gem = function(_gemType){
     this.y = _yOffset + ( _rowHeight * this.colNum);
 }
 
-// Draw the gem on the screen, required method for game
-Gem.prototype.render = function() {
+// Draw the game object on the screen, required method for game
+GameObject.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Remove the gem from the screen, required method for game
-Gem.prototype.remove = function() {
+// Remove the game obj from the screen, required method for game
+GameObject.prototype.remove = function() {
   this.x = this.hideOffsets.topX;
   this.y = this.hideOffsets.topY;
 };
@@ -111,7 +112,8 @@ var PlayerScore = function(_scoreValDict){
       greenGem: _scoreValDict.greenGem || 15,
       orangeGem: _scoreValDict.orangeGem || 25,
       collision: _scoreValDict.collision || -5,
-      offBound: _scoreValDict.offBound || -1
+      offBound: _scoreValDict.offBound || -1,
+      rock: _scoreValDict.rock || 0
     };
 };
 
@@ -166,6 +168,8 @@ var Player = function(){
     this.y = this.initialPositions.y;
     this.sprite = 'images/char-boy.png';
   
+    this.prevMove = '';
+  
     // add the score object to the player
     this.scoreObj = new PlayerScore();
   
@@ -179,7 +183,7 @@ Player.prototype.moveToNextLevel = function(){
   this.levelObj.level = this.levelObj.level + 1;
   this.levelObj.initWithLevel(this.levelObj.level);
   allEnemies = this.levelObj.allEnemies;
-  allGems = this.levelObj.allGems;
+  allGameObjects = this.levelObj.allGameObjects;
 };
 
 // Update the player's position, required method for game
@@ -193,13 +197,30 @@ Player.prototype.update = function(){
             self.reset();
         }
     });
-    allGems.forEach(function(gem){
-        if((((gem.x + self.collisionRange.x >= self.x) && (gem.x  - self.x < self.collisionRange.x)) ) && ((self.y >= gem.y) && (self.y - gem.y < self.collisionRange.y))){
-            self.scoreObj.updateScore(self.scoreObj.scoreValDict[gem.gemType]);
-            gem.remove();
+  
+    // check if any game object is in collision range
+    allGameObjects.forEach(function(gameObj){
+        if((((gameObj.x + self.collisionRange.x >= self.x) && (gameObj.x  - self.x < self.collisionRange.x)) ) && ((self.y >= gameObj.y) && (self.y - gameObj.y < self.collisionRange.y))){
+            self.scoreObj.updateScore(self.scoreObj.scoreValDict[gameObj.objType]);
+            if(gameObj.objType == 'rock'){
+                self.undoPrevMove();
+            }else{
+                gameObj.remove();
+            }
         }
     });
 };
+
+// Undo Previous Move
+Player.prototype.undoPrevMove = function(){
+  _revMoveObj = {
+    'left': 'right',
+    'right': 'left',
+    'up': 'down',
+    'down': 'up'
+  };
+  this.handleInput(_revMoveObj[this.prevMove]);
+}
 
 // Draw the player on the screen, required method for game
 Player.prototype.render = function(){
@@ -216,8 +237,10 @@ Player.prototype.handleInput = function(keyCode){
         this.x += this.offsets[keyCode].x;
         this.y += this.offsets[keyCode].y;
     }else{
+        this.prevMove = '';
         this.reset();
     }
+    this.prevMove = keyCode;
     this.render();
 };
 
@@ -258,25 +281,29 @@ var PlayerLevel = function(){
       'numberOfEnemies' : 1,
       'numberOfBlueGems': 1,
       'numberOfGreenGems': 0,
-      'numberOfOrangeGems': 0
+      'numberOfOrangeGems': 0,
+      'numberOfRocks': 0
     },
     {
       'numberOfEnemies' : 2,
       'numberOfBlueGems': 2,
       'numberOfGreenGems': 0,
-      'numberOfOrangeGems': 0
+      'numberOfOrangeGems': 0,
+      'numberOfRocks': 1
     },
     {
       'numberOfEnemies' : 3,
       'numberOfBlueGems': 2,
       'numberOfGreenGems': 1,
-      'numberOfOrangeGems': 0
+      'numberOfOrangeGems': 0,
+      'numberOfRocks': 1
     },
     {
       'numberOfEnemies' : 3,
       'numberOfBlueGems': 2,
       'numberOfGreenGems': 1,
-      'numberOfOrangeGems': 1
+      'numberOfOrangeGems': 1,
+      'numberOfRocks': 1
     }];
   
     // Level setup values
@@ -289,7 +316,8 @@ var PlayerLevel = function(){
       textY: 50
     };
     this.allEnemies = [];
-    this.allGems = [];
+    this.allGameObjects = [];
+    this.allRocks = [];
 }
 
 // Update the player score on the screen, required method for game
@@ -318,33 +346,34 @@ PlayerLevel.prototype.initWithLevel = function(level){
       allEnemies.push(new Enemy());
   }
 
-  var allGems = [];
-  var numberOfGems = {
+  var allGameObjects = [];
+  var numberOfGameObjects = {
     'blueGem': levelSetupValues.numberOfBlueGems,
     'greenGem': levelSetupValues.numberOfGreenGems,
-    'orangeGem': levelSetupValues.numberOfOrangeGems
+    'orangeGem': levelSetupValues.numberOfOrangeGems,
+    'rock': levelSetupValues.numberOfRocks
   };
 
-  for (var k in numberOfGems){
-    if (numberOfGems.hasOwnProperty(k)) {
-      var j = numberOfGems[k];
+  for (var k in numberOfGameObjects){
+    if (numberOfGameObjects.hasOwnProperty(k)) {
+      var j = numberOfGameObjects[k];
       while(j > 0){
           var _valid = true;
-          var _gem = new Gem(k);
-          allGems.forEach(function(gem){
-            if((gem.rowNum == _gem.rowNum) && (gem.colNum == _gem.colNum)){
+          var _gameObj = new GameObject(k);
+          allGameObjects.forEach(function(gameObj){
+            if((gameObj.rowNum == _gameObj.rowNum) && (gameObj.colNum == _gameObj.colNum)){
               _valid = false;
             }
           });
           if(_valid){
-            allGems.push(_gem);
+            allGameObjects.push(_gameObj);
             j--;
           }
       }
     }
   }
   this.allEnemies = allEnemies;
-  this.allGems = allGems;
+  this.allGameObjects = allGameObjects;
 };
 
 var player = new Player();
@@ -362,5 +391,5 @@ document.addEventListener('keyup', function(e) {
 });
 
 var allEnemies = player.levelObj.allEnemies;
-var allGems = player.levelObj.allGems;
+var allGameObjects = player.levelObj.allGameObjects;
 

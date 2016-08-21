@@ -15,7 +15,7 @@ var PlayerLife = function(_lifeVal){
     };
 };
 
-// Update the score of the player
+// Update the life of the player
 PlayerLife.prototype.updateLife = function(value){
     this.life += value;
     if(this.life == 0){
@@ -23,7 +23,7 @@ PlayerLife.prototype.updateLife = function(value){
     }
 };
 
-// Update the player score on the screen, required method for game
+// Update the player life on the screen, required method for game
 PlayerLife.prototype.render = function(){
     scoreCtx.clearRect(120, 0, this.lifeRenderSetup.canvasWidth, this.lifeRenderSetup.canvasHeight);
     scoreCtx.font = this.lifeRenderSetup.font;

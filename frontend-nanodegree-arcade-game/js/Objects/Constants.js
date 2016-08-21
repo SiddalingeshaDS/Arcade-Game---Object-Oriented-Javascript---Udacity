@@ -5,7 +5,58 @@ CONSTANTS = function(){
   return {
     //Game Constants
     'GAME': {
-      
+      'INITIAL_POSITIONS': {'X': 0, 'Y': 213},
+      'INITIAL_PLAYER_NUM': 0,
+      'OFFSETS': {        
+        'LEFT': {'X': -101, 'Y': 0},
+        'RIGHT': {'X': 101, 'Y': 0}
+      },
+      'LIMITS': {
+        'LEFT_X': 0,
+        'RIGHT_X': 422
+      },
+      'PLAYER_OFFSETS': {
+        'LEFT': -1,
+        'RIGHT': 1
+      },
+      'PLAYER_TYPES': [
+        'boy',
+        'cat-girl',
+        'horn-girl',
+        'pink-girl',
+        'princess-girl'
+      ],
+      'GAME_START_RENDER_SETUP': {
+        'FONT': "22px Arial",
+        'TEXT': "Select the player and Hit Enter to Start the Game.",
+        'TEXT_X': 10,
+        'TEXT_Y': 330
+      },
+      'GAME_END_RENDER_SETUP': {
+        'FONT': "50px Arial",
+        'TEXT': "GAME OVER!",
+        'FILL_STYLE': 'red',
+        'TEXT_X': 100,
+        'TEXT_Y': 280
+      },
+      'INITIAL_PLAYER': null,
+      'BACKGROUND_ROW_IMAGES': [
+            'images/char-boy.png',   // Boy
+            'images/char-cat-girl.png',   // Cat Girl
+            'images/char-horn-girl.png',   // Horn Girl
+            'images/char-pink-girl.png',   // Pink Girl
+            'images/char-princess-girl.png'   // Princess Girl
+          ],
+      'BACKGROUND_IMG_COORDINATES': [
+        {'X': 0, 'Y': 116},
+        {'X': 101, 'Y': 116},
+        {'X': 202, 'Y': 116},
+        {'X': 303, 'Y': 116},
+        {'X': 404, 'Y': 116}
+      ],
+      'SPRITE_IMG': 'images/Selector.png',
+      'SPRITE_IMG_Y': 130,
+
     },
     // Enemy Constants
     'ENEMY': {
@@ -20,28 +71,28 @@ CONSTANTS = function(){
     },
     // Player constants
     'PLAYER': {
-      'INITIAL_POSITIONS': {'X' : 200, 'Y' : 400},
+      'INITIAL_POSITIONS': {'X': 200, 'Y': 400},
       'OFFSETS': {        
-        'LEFT' : {'X' : -101, 'Y' : 0},
-        'UP' : {'X' : 0, 'Y' : -83},
-        'RIGHT' : {'X' : 101, 'Y' : 0},
-        'DOWN' : {'X' : 0, 'Y' : 83}
+        'LEFT': {'X': -101, 'Y': 0},
+        'UP': {'X': 0, 'Y': -83},
+        'RIGHT': {'X': 101, 'Y': 0},
+        'DOWN': {'X': 0, 'Y': 83}
       },
       'LIMITS': {
-        'LEFT_X' : -83,
-        'RIGHT_X' : 422,
-        'TOP_Y' : 0,
-        'BOTTOM_Y' : 400
+        'LEFT_X': -83,
+        'RIGHT_X': 422,
+        'TOP_Y': 0,
+        'BOTTOM_Y': 400
       },
       'COLLISION_RANGE': {
-        'X' : 80,
-        'Y' : 63
+        'X': 80,
+        'Y': 63
       },
-      'DEFAULT_PLAYER_TYPE' : 'boy',
+      'DEFAULT_PLAYER_TYPE': 'boy',
       'SPRITE_DICT': {
-        'BOY' : 'images/char-boy.png',
-        'CAT_GIRL' : 'images/char-cat-girl.png',
-        'HORN_GIRL' : 'images/char-horn-girl.png',
+        'BOY': 'images/char-boy.png',
+        'CAT_GIRL': 'images/char-cat-girl.png',
+        'HORN_GIRL': 'images/char-horn-girl.png',
         'PINK_GIRL': 'images/char-pink-girl.png',
         'PRINCESS_GIRL': 'images/char-princess-girl.png'
       },
@@ -52,70 +103,70 @@ CONSTANTS = function(){
     // Player level constants
     'PLAYER_LEVEL': {
       'LEVEL_SETUP': [{
-          'numberOfEnemies' : 1,
+          'numberOfEnemies': 1,
           'numberOfBlueGems': 1,
           'numberOfGreenGems': 0,
           'numberOfOrangeGems': 0,
           'numberOfRocks': 0
         },
         {
-          'numberOfEnemies' : 2,
+          'numberOfEnemies': 2,
           'numberOfBlueGems': 2,
           'numberOfGreenGems': 0,
           'numberOfOrangeGems': 0,
           'numberOfRocks': 1
         },
         {
-          'numberOfEnemies' : 3,
+          'numberOfEnemies': 3,
           'numberOfBlueGems': 2,
           'numberOfGreenGems': 1,
           'numberOfOrangeGems': 0,
           'numberOfRocks': 1
         },
         {
-          'numberOfEnemies' : 3,
+          'numberOfEnemies': 3,
           'numberOfBlueGems': 2,
           'numberOfGreenGems': 1,
           'numberOfOrangeGems': 1,
           'numberOfRocks': 1
         },
         {
-          'numberOfEnemies' : 3,
+          'numberOfEnemies': 3,
           'numberOfBlueGems': 2,
           'numberOfGreenGems': 2,
           'numberOfOrangeGems': 1,
           'numberOfRocks': 2
         },
         {
-          'numberOfEnemies' : 5,
+          'numberOfEnemies': 5,
           'numberOfBlueGems': 2,
           'numberOfGreenGems': 2,
           'numberOfOrangeGems': 1,
           'numberOfRocks': 2
         },
         {
-          'numberOfEnemies' : 5,
+          'numberOfEnemies': 5,
           'numberOfBlueGems': 2,
           'numberOfGreenGems': 2,
           'numberOfOrangeGems': 1,
           'numberOfRocks': 3
         },
         {
-          'numberOfEnemies' : 5,
+          'numberOfEnemies': 5,
           'numberOfBlueGems': 2,
           'numberOfGreenGems': 2,
           'numberOfOrangeGems': 1,
           'numberOfRocks': 4
         },
         {
-          'numberOfEnemies' : 6,
+          'numberOfEnemies': 6,
           'numberOfBlueGems': 2,
           'numberOfGreenGems': 2,
           'numberOfOrangeGems': 1,
           'numberOfRocks': 5
         },
         {
-          'numberOfEnemies' : 8,
+          'numberOfEnemies': 8,
           'numberOfBlueGems': 3,
           'numberOfGreenGems': 2,
           'numberOfOrangeGems': 1,

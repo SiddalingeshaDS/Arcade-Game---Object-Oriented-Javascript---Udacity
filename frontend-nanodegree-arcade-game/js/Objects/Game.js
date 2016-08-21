@@ -4,56 +4,55 @@
 * @constructor
 */
 var Game = function() {
+    if(!CONSTANTS){
+      return;
+    }
     // initial position
-    this.initialPositions = {'x' : 0, 'y' : 213};
-    this.playerNum = 0;
+    this.initialPositions = {'x': CONSTANTS.GAME.INITIAL_POSITIONS.X, 'y': CONSTANTS.GAME.INITIAL_POSITIONS.Y};
+    this.playerNum = CONSTANTS.GAME.INITIAL_PLAYER_NUM;
     
     // coordinates to be added to handle the user inputs
     this.offsets = {
-        'left' : {'x' : -101, 'y' : 0},
-        'right' : {'x' : 101, 'y' : 0}
+        'left': {'x': CONSTANTS.GAME.OFFSETS.LEFT.X, 'y': CONSTANTS.GAME.OFFSETS.LEFT.Y },
+        'right': {'x': CONSTANTS.GAME.OFFSETS.RIGHT.X, 'y': CONSTANTS.GAME.OFFSETS.RIGHT.Y }
     };
     
-    // set of player types available
-    this.playerTypes = [
-      'boy',
-      'cat-girl',
-      'horn-girl',
-      'pink-girl',
-      'princess-girl'
-    ];
-    this.playerOffsets = {
-      'left': -1,
-      'right': 1
-    };
     // coordinate limits to check if the player is off bounds
     this.limits = {
-        'leftX' : 0,
-        'rightX' : 422
+        'leftX': CONSTANTS.GAME.LIMITS.LEFT_X,
+        'rightX': CONSTANTS.GAME.LIMITS.RIGHT_X
     };
+  
+    this.playerOffsets = {
+      'left':  CONSTANTS.GAME.PLAYER_OFFSETS.LEFT,
+      'right': CONSTANTS.GAME.PLAYER_OFFSETS.RIGHT
+    };
+    // set of player types available
+    this.playerTypes =CONSTANTS.GAME.PLAYER_TYPES;
   
     // initialize the postions 
     this.x = this.initialPositions.x;
     this.y = this.initialPositions.y;
     
     this.gameStartRenderSetup = {
-        font: "22px Arial",
-        text: "Select the player and Hit Enter to Start the Game.",
-        textX: 10,
-        textY: 330
+        font: CONSTANTS.GAME.GAME_START_RENDER_SETUP.FONT,
+        text: CONSTANTS.GAME.GAME_START_RENDER_SETUP.TEXT,
+        textX: CONSTANTS.GAME.GAME_START_RENDER_SETUP.TEXT_X,
+        textY: CONSTANTS.GAME.GAME_START_RENDER_SETUP.TEXT_Y
       };
   
     this.gameEndRenderSetup = {
-        font: "50px Arial",
-        text: "GAME OVER!",
-        textX: 100,
-        textY: 280
+        font: CONSTANTS.GAME.GAME_END_RENDER_SETUP.FONT,
+        text: CONSTANTS.GAME.GAME_END_RENDER_SETUP.TEXT,
+        fillStyle: CONSTANTS.GAME.GAME_END_RENDER_SETUP.FILL_STYLE,
+        textX: CONSTANTS.GAME.GAME_END_RENDER_SETUP.TEXT_X,
+        textY: CONSTANTS.GAME.GAME_END_RENDER_SETUP.TEXT_Y
     };
   
-    this.sprite = 'images/Selector.png';  
+    this.sprite = CONSTANTS.GAME.SPRITE_IMG;  
   
   // updated when player is selected
-    this.player = null;
+    this.player = CONSTANTS.GAME.INITIAL_PLAYER;
 };
 
 
@@ -62,30 +61,21 @@ Game.prototype.render = function() {
 
   // render the images of the players in the second row
     function renderPlayers() {
-        var rowImages = [
-                'images/char-boy.png',   // Boy
-                'images/char-cat-girl.png',   // Cat Girl
-                'images/char-horn-girl.png',   // Horn Girl
-                'images/char-pink-girl.png',   // Pink Girl
-                'images/char-princess-girl.png'   // Princess Girl
-            ];
-
-          ctx.drawImage(Resources.get(rowImages[0]), 0 * 101, (2 * 83) - 50);
-          ctx.drawImage(Resources.get(rowImages[1]), 1 * 101, (2 * 83) - 50);
-          ctx.drawImage(Resources.get(rowImages[2]), 2 * 101, (2 * 83) - 50);
-          ctx.drawImage(Resources.get(rowImages[3]), 3 * 101, (2 * 83) - 50);
-          ctx.drawImage(Resources.get(rowImages[4]), 4 * 101, (2 * 83) - 50);
+        var rowImages = CONSTANTS.GAME.BACKGROUND_ROW_IMAGES;
+        for(var i=0; i < rowImages.length; i++){
+          ctx.drawImage(Resources.get(rowImages[i]), CONSTANTS.GAME.BACKGROUND_IMG_COORDINATES[i].X, CONSTANTS.GAME.BACKGROUND_IMG_COORDINATES[i].Y);
+        }
     }
     // render the selector image to highlight the selected player
     if(gamePhase === 'start'){
-        ctx.drawImage(Resources.get(this.sprite), this.x, (3 * 83) - 120);
+        ctx.drawImage(Resources.get(this.sprite), this.x, CONSTANTS.GAME.SPRITE_IMG_Y);
         ctx.font = this.gameStartRenderSetup.font;
         ctx.fillText(this.gameStartRenderSetup.text,this.gameStartRenderSetup.textX,this.gameStartRenderSetup.textY);
         ctx.fillText(this.gameStartRenderSetup.text,this.gameStartRenderSetup.textX,this.gameStartRenderSetup.textY);
         renderPlayers();
     }else if(gamePhase === 'end'){
         ctx.font = this.gameEndRenderSetup.font;
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = this.gameEndRenderSetup.fillStyle;
         ctx.fillText(this.gameEndRenderSetup.text,this.gameEndRenderSetup.textX,this.gameEndRenderSetup.textY);
         ctx.fillText(this.gameEndRenderSetup.text,this.gameEndRenderSetup.textX,this.gameEndRenderSetup.textY);
         player.scoreObj.render();

@@ -4,55 +4,57 @@
 */
 var Player = function(_playerType){
     // initial position for the player
-    this.initialPositions = {'x' : 200, 'y' : 400};
+    if(!CONSTANTS)
+      return;
+    this.initialPositions = {'x' : CONSTANTS.PLAYER.INITIAL_POSITIONS.X, 'y' : CONSTANTS.PLAYER.INITIAL_POSITIONS.Y};
     
     // coordinates to be added to handle the user inputs
     this.offsets = {
-        'left' : {'x' : -101, 'y' : 0},
-        'up' : {'x' : 0, 'y' : -83},
-        'right' : {'x' : 101, 'y' : 0},
-        'down' : {'x' : 0, 'y' : 83},
+        'left' : {'x' : CONSTANTS.PLAYER.OFFSETS.LEFT.X, 'y' : CONSTANTS.PLAYER.OFFSETS.LEFT.Y},
+        'up' : {'x' : CONSTANTS.PLAYER.OFFSETS.UP.X, 'y' : CONSTANTS.PLAYER.OFFSETS.UP.Y},
+        'right' : {'x' : CONSTANTS.PLAYER.OFFSETS.RIGHT.X, 'y' : CONSTANTS.PLAYER.OFFSETS.RIGHT.Y},
+        'down' : {'x' : CONSTANTS.PLAYER.OFFSETS.DOWN.X, 'y' : CONSTANTS.PLAYER.OFFSETS.LEFT.Y}
     };
     
     // coordinate limits to check if the player is off bounds
     this.limits = {
-        'leftX' : -83,
-        'rightX' : 422,
-        'topY' : 0,
-        'bottomY' : 400
+        'leftX' : CONSTANTS.PLAYER.LIMITS.LEFT_X,
+        'rightX' : CONSTANTS.PLAYER.LIMITS.RIGHT_X,
+        'topY' : CONSTANTS.PLAYER.LIMITS.TOP_Y,
+        'bottomY' : CONSTANTS.PLAYER.LIMITS.BOTTOM_Y
     }
     
     // collision range for the player
     this.collisionRange = {
-        'x' : 80,
-        'y' : 63
+        'x' : CONSTANTS.PLAYER.COLLISION_RANGE.X,
+        'y' : CONSTANTS.PLAYER.COLLISION_RANGE.Y
     };
     
     // initialize the postions before the game begins
     this.x = this.initialPositions.x;
     this.y = this.initialPositions.y;
   
-    this.playerType = _playerType || 'boy';
+    this.playerType = _playerType || CONSTANTS.PLAYER.DEFAULT_PLAYER_TYPE;
     var _spriteDict = {
-      'boy' : 'images/char-boy.png',
-      'cat-girl' : 'images/char-cat-girl.png',
-      'horn-girl' : 'images/char-horn-girl.png',
-      'pink-girl': 'images/char-pink-girl.png',
-      'princess-girl': 'images/char-princess-girl.png'
+      'boy' : CONSTANTS.PLAYER.SPRITE_DICT.BOY,
+      'cat-girl' : CONSTANTS.PLAYER.SPRITE_DICT.CAT_GIRL,
+      'horn-girl' : CONSTANTS.PLAYER.SPRITE_DICT.HORN_GIRL,
+      'pink-girl': CONSTANTS.PLAYER.SPRITE_DICT.PINK_GIRL,
+      'princess-girl': CONSTANTS.PLAYER.SPRITE_DICT.PRINCESS_GIRL
     };  
   
     this.sprite = _spriteDict[this.playerType];
-    this.prevMove = '';
+    this.prevMove = CONSTANTS.PLAYER.DEFAULT_PREV_MOVE;
   
     // add the score object to the player
     this.scoreObj = new PlayerScore();
   
     // add the level object to the player
     this.levelObj = new PlayerLevel();
-    this.levelObj.initWithLevel(0);
+    this.levelObj.initWithLevel(CONSTANTS.PLAYER.DEFAULT_LEVEL);
   
     // add the life object to the player
-    this.lifeObj = new PlayerLife(3);
+    this.lifeObj = new PlayerLife(CONSTANTS.PLAYER.DEFAULT_LIVES);
 };
 
 // Move player to next level

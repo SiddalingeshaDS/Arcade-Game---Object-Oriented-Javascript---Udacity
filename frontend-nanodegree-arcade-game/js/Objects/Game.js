@@ -44,9 +44,9 @@ var Game = function() {
       };
   
     this.gameEndRenderSetup = {
-        font: "48px Arial",
+        font: "50px Arial",
         text: "GAME OVER!",
-        textX: 120,
+        textX: 100,
         textY: 280
     };
   

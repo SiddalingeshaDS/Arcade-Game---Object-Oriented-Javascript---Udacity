@@ -38,22 +38,22 @@ var PlayerLevel = function(){
     this.levelRenderSetup = {
       font: "22px Arial",
       text: "Level: ",
-      canvasWidth: 253,
+      canvasWidth: 203,
       canvasHeight: 101,
-      textX: 380,
+      textX: 400,
       textY: 50
     };
     this.allEnemies = [];
     this.allGameObjects = [];
     this.allRocks = [];
-    this.x = 280;
+    this.x = 300;
     this.y = -60;
     this.sprite = 'images/Star.png';
 }
 
 // Update the player score on the screen, required method for game
 PlayerLevel.prototype.render = function(){
-    scoreCtx.clearRect(252, 0, this.levelRenderSetup.canvasWidth, this.levelRenderSetup.canvasHeight);
+    scoreCtx.clearRect(300, 0, this.levelRenderSetup.canvasWidth, this.levelRenderSetup.canvasHeight);
     scoreCtx.font = this.levelRenderSetup.font;
     scoreCtx.fillText(this.levelRenderSetup.text + parseInt(this.level + 1),this.levelRenderSetup.textX,this.levelRenderSetup.textY);
     scoreCtx.drawImage(Resources.get(this.sprite), this.x, this.y);

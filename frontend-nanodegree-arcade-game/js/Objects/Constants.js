@@ -3,7 +3,49 @@
 */
 CONSTANTS = function(){
   return {
-    //Game Constants
+    // Engine Constants
+    'ENGINE': {
+      'CANVAS_MAIN': {
+        'WIDTH': 505,
+        'HEIGHT': 606
+      },
+      'CANVAS_SCORE': {
+        'WIDTH': 505,
+        'HEIGHT': 101
+      },
+      'BACKGROUND_ROW_IMAGES': [
+          'images/water-block.png',   // Top row is water
+          'images/stone-block.png',   // Row 1 of 3 of stone
+          'images/stone-block.png',   // Row 2 of 3 of stone
+          'images/stone-block.png',   // Row 3 of 3 of stone
+          'images/grass-block.png',   // Row 1 of 2 of grass
+          'images/grass-block.png'    // Row 2 of 2 of grass
+        ],
+      'NUMBER_OF_ROWS': 6,
+      'NUMBER_OF_COLS': 5,
+      'COL_WIDTH': 101,
+      'ROW_HEIGHT': 83,
+      'IMG_LOAD_LIST': [
+        'images/stone-block.png',
+        'images/water-block.png',
+        'images/grass-block.png',
+        'images/enemy-bug.png',
+        'images/char-boy.png',
+        'images/Gem Blue.png',
+        'images/Gem Green.png',
+        'images/Gem Orange.png',
+        'images/Rock.png',
+        'images/Selector.png',
+        'images/Star.png',
+        'images/Heart.png',
+        'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png'
+      ]
+    },
+    // Game Constants
     'GAME': {
       'INITIAL_POSITIONS': {'X': 0, 'Y': 213},
       'INITIAL_PLAYER_NUM': 0,

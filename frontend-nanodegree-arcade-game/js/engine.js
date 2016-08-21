@@ -19,6 +19,9 @@ var Engine = (function(global) {
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
+    if(!CONSTANTS){
+      return;
+    }
     var doc = global.document,
         win = global.window,
         canvas = doc.createElement('canvas'),
@@ -27,10 +30,10 @@ var Engine = (function(global) {
         scoreCanvas = doc.createElement('canvas'),
         scoreCtx = scoreCanvas.getContext('2d');
     
-    canvas.width = 505;
-    canvas.height = 606;
-    scoreCanvas.width = 505;
-    scoreCanvas.height = 101;
+    canvas.width = CONSTANTS.ENGINE.CANVAS_MAIN.WIDTH;
+    canvas.height = CONSTANTS.ENGINE.CANVAS_MAIN.HEIGHT;
+    scoreCanvas.width = CONSTANTS.ENGINE.CANVAS_SCORE.WIDTH;
+    scoreCanvas.height = CONSTANTS.ENGINE.CANVAS_SCORE.HEIGHT;
     doc.body.appendChild(canvas);
     doc.body.appendChild(scoreCanvas);
   
@@ -113,16 +116,9 @@ var Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-        var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
-            ],
-            numRows = 6,
-            numCols = 5,
+        var rowImages = CONSTANTS.ENGINE.BACKGROUND_ROW_IMAGES,
+            numRows = CONSTANTS.ENGINE.NUMBER_OF_ROWS,
+            numCols = CONSTANTS.ENGINE.NUMBER_OF_COLS,
             row, col;
 
         /* Loop through the number of rows and columns we've defined above
@@ -138,7 +134,7 @@ var Engine = (function(global) {
                  * so that we get the benefits of caching these images, since
                  * we're using them over and over.
                  */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                ctx.drawImage(Resources.get(rowImages[row]), col * CONSTANTS.ENGINE.COL_WIDTH, row * CONSTANTS.ENGINE.ROW_HEIGHT);
             }
         }
       
@@ -179,25 +175,7 @@ var Engine = (function(global) {
      * draw our game level. Then set init as the callback method, so that when
      * all of these images are properly loaded our game will start.
      */
-    Resources.load([
-        'images/stone-block.png',
-        'images/water-block.png',
-        'images/grass-block.png',
-        'images/enemy-bug.png',
-        'images/char-boy.png',
-        'images/Gem Blue.png',
-        'images/Gem Green.png',
-        'images/Gem Orange.png',
-        'images/Rock.png',
-        'images/Selector.png',
-        'images/Star.png',
-        'images/Heart.png',
-        'images/char-boy.png',
-        'images/char-cat-girl.png',
-        'images/char-horn-girl.png',
-        'images/char-pink-girl.png',
-        'images/char-princess-girl.png'
-    ]);
+    Resources.load(CONSTANTS.ENGINE.IMG_LOAD_LIST);
     Resources.onReady(init);
 
     /* Assign the canvas' context object to the global variable (the window

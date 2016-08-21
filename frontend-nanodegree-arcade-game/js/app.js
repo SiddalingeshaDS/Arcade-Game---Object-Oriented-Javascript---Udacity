@@ -43,6 +43,45 @@ Enemy.prototype.render = function() {
 //---------------------------------------------------
 
 /**
+* @description Represents a Gem
+* @constructor
+*/
+
+var Gem = function(){
+      // coordinates to be added to handle the user inputs
+    this.hideOffsets = {
+        'topX' : -101,
+        'topY' : -83,
+    };
+    this.sprite = 'images/Gem Blue.png';
+      // Initial variables to hold the size and step of the enemy positions
+    var _xOffset = 0;
+    var _yOffset = 60;
+    var _rowHeight = 83; // rowHeight of the blocks where the enemies can be placed
+    var _rowWidth = 101; // rowHeight of the blocks where the enemies can be placed
+
+    // Random initialization of the x and y value to be placed anywhere on the three block paths
+    this.rowNum = (Math.floor(5 * Math.random(Date.now())));
+    this.colNum = (Math.floor(3 * Math.random(Date.now())));
+    console.log(this.rowNum, this.colNum);
+    this.x = _xOffset + ( _rowWidth * this.rowNum);
+    this.y = _yOffset + ( _rowHeight * this.colNum);
+}
+
+// Draw the gem on the screen, required method for game
+Gem.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+// Remove the gem from the screen, required method for game
+Gem.prototype.remove = function() {
+  this.x = this.hideOffsets.topX;
+  this.y = this.hideOffsets.topY;
+};
+
+//---------------------------------------------------
+
+/**
 * @description Represents a PlayerScore
 * @constructor
 */
@@ -82,6 +121,7 @@ PlayerScore.prototype.render = function(){
     scoreCtx.font = this.scoreSetup.font;
     scoreCtx.fillText(this.scoreSetup.text + this.score,this.scoreSetup.textX,this.scoreSetup.textY);
 };
+
 
 //---------------------------------------------------
 
@@ -136,7 +176,12 @@ Player.prototype.update = function(){
             self.reset();
         }
     });
-
+    allGems.forEach(function(gem){
+        if((((gem.x + self.collisionRange.x >= self.x) && (gem.x  - self.x < self.collisionRange.x)) ) && ((self.y >= gem.y) && (self.y - gem.y < self.collisionRange.y))){
+            self.scoreObj.updateScore(self.scoreObj.scoreDict.blueGemVal);
+            gem.remove();
+        }
+    });
 };
 
 // Draw the player on the screen, required method for game
@@ -205,3 +250,21 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+var allGems = [];
+// Number of Gems: 2
+var numberOfGems = 2;
+var j = numberOfGems; 
+while(j > 0){
+    var _valid = true;
+    var _gem = new Gem();
+    allGems.forEach(function(gem){
+      if((gem.rowNum == _gem.rowNum) && (gem.colNum == _gem.colNum)){
+        _valid = false;
+      }
+    });
+    console.log(j,_valid);
+    if(_valid){
+      allGems.push(_gem);
+      j--;
+    }
+}

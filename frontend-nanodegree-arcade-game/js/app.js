@@ -168,8 +168,21 @@ var Player = function(){
   
     // add the score object to the player
     this.scoreObj = new PlayerScore();
+  
+    // add the level object to the player
+    this.level = 0;
+    this.levelObj = new PlayerLevel();
+    this.levelObj.initWithLevel(0);
 };
 
+// Move player to next level
+Player.prototype.moveToNextLevel = function(){
+  console.log(this.level);
+  this.level = this.level + 1;
+  this.levelObj.initWithLevel(this.level);
+  allEnemies = this.levelObj.allEnemies;
+  allGems = this.levelObj.allGems;
+};
 
 // Update the player's position, required method for game
 Player.prototype.update = function(){
@@ -216,6 +229,7 @@ Player.prototype.checkLimits = function(keyCode){
     if(_tempX < this.limits.leftX || _tempX > this.limits.rightX || _tempY < this.limits.topY || _tempY > this.limits.bottomY){
        if(_tempY <= this.limits.topY){
           this.scoreObj.updateScore(this.scoreObj.scoreValDict.finish);
+          this.moveToNextLevel();
         }else{
           this.scoreObj.updateScore(this.scoreObj.scoreValDict.offBound);
         }
@@ -231,16 +245,89 @@ Player.prototype.reset = function(){
     this.render();
 }
 
-// Instantiating the objects.
-// All enemy objects are in an array called allEnemies
-// The player object in a variable called player
 
-var allEnemies = [];
-// Number of enemies : 4
-var numberOfEnemies = 4;
-for(var i = 0 ; i < numberOfEnemies; i++){
-    allEnemies.push(new Enemy());
+//---------------------------------------------------
+
+/**
+* @description Represents a PlayerLevel
+* @constructor
+*/
+var PlayerLevel = function(){
+  this.levelSetup = [{
+    'numberOfEnemies' : 1,
+    'numberOfBlueGems': 1,
+    'numberOfGreenGems': 0,
+    'numberOfOrangeGems': 0
+  },
+  {
+    'numberOfEnemies' : 2,
+    'numberOfBlueGems': 2,
+    'numberOfGreenGems': 0,
+    'numberOfOrangeGems': 0
+  },
+  {
+    'numberOfEnemies' : 3,
+    'numberOfBlueGems': 2,
+    'numberOfGreenGems': 1,
+    'numberOfOrangeGems': 0
+  },
+  {
+    'numberOfEnemies' : 3,
+    'numberOfBlueGems': 2,
+    'numberOfGreenGems': 1,
+    'numberOfOrangeGems': 1
+  }];
+  
+  this.allEnemies = [];
+  this.allGems = [];
+
 }
+
+PlayerLevel.prototype.initWithLevel = function(level){
+  // Instantiating the objects.
+  // All enemy objects are in an array called allEnemies
+  // The player object in a variable called player
+  
+  level = level || 0;
+  console.log(this.level);
+  if(level > (this.levelSetup.length - 1 ))
+      return;
+  var levelSetupValues = this.levelSetup[level];
+  
+  var allEnemies = [];
+  var numberOfEnemies = levelSetupValues.numberOfEnemies;
+  for(var i = 0 ; i < numberOfEnemies; i++){
+      allEnemies.push(new Enemy());
+  }
+
+  var allGems = [];
+  var numberOfGems = {
+    'blueGem': levelSetupValues.numberOfBlueGems,
+    'greenGem': levelSetupValues.numberOfGreenGems,
+    'orangeGem': levelSetupValues.numberOfOrangeGems
+  };
+
+  for (var k in numberOfGems){
+    if (numberOfGems.hasOwnProperty(k)) {
+      var j = numberOfGems[k];
+      while(j > 0){
+          var _valid = true;
+          var _gem = new Gem(k);
+          allGems.forEach(function(gem){
+            if((gem.rowNum == _gem.rowNum) && (gem.colNum == _gem.colNum)){
+              _valid = false;
+            }
+          });
+          if(_valid){
+            allGems.push(_gem);
+            j--;
+          }
+      }
+    }
+  }
+  this.allEnemies = allEnemies;
+  this.allGems = allGems;
+};
 
 var player = new Player();
 
@@ -256,56 +343,6 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-var allGems = [];
-// Number of Blue Gems: 2
-// Number of Green Gems: 1
-// Number of Orange Gems: 1
+var allEnemies = player.levelObj.allEnemies;
+var allGems = player.levelObj.allGems;
 
-var numberOfBlueGems = 2;
-var numberOfGreenGems = 1;
-var numberOfOrangeGems = 1;
-
-var j = numberOfBlueGems; 
-while(j > 0){
-    var _valid = true;
-    var _gem = new Gem('blueGem');
-    allGems.forEach(function(gem){
-      if((gem.rowNum == _gem.rowNum) && (gem.colNum == _gem.colNum)){
-        _valid = false;
-      }
-    });
-    if(_valid){
-      allGems.push(_gem);
-      j--;
-    }
-}
-
-j = numberOfGreenGems; 
-while(j > 0){
-    var _valid = true;
-    var _gem = new Gem('greenGem');
-    allGems.forEach(function(gem){
-      if((gem.rowNum == _gem.rowNum) && (gem.colNum == _gem.colNum)){
-        _valid = false;
-      }
-    });
-    if(_valid){
-      allGems.push(_gem);
-      j--;
-    }
-}
-
-j = numberOfOrangeGems; 
-while(j > 0){
-    var _valid = true;
-    var _gem = new Gem('orangeGem');
-    allGems.forEach(function(gem){
-      if((gem.rowNum == _gem.rowNum) && (gem.colNum == _gem.colNum)){
-        _valid = false;
-      }
-    });
-    if(_valid){
-      allGems.push(_gem);
-      j--;
-    }
-}

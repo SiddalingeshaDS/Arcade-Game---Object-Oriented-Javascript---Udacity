@@ -140,9 +140,6 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-//        ctx.drawImage(Resources.get(rowImages[row]), 0 * 101, 7 * 83);
-        scoreCtx.font = "30px Arial";
-        scoreCtx.fillText("Score: "+ player.score, 0 * 101, 0 * 83);
         renderEntities();
     }
 

@@ -4,19 +4,22 @@
 */
 
 var PlayerLife = function(_lifeVal){
-    this.life = _lifeVal || 0;
+    if(!CONSTANTS){
+      return;
+    }
+    this.life = _lifeVal || CONSTANTS.PLAYER_LIFE.INITIAL_LIFE;
     this.lifeRenderSetup = {
-      font: "22px Arial",
-      text: "Lives: ",
-      canvasWidth: 180,
-      canvasHeight: 101,
-      textX: 220,
-      textY: 50
+      font: CONSTANTS.PLAYER_LIFE.LIFE_RENDER_SETUP.FONT,
+      text: CONSTANTS.PLAYER_LIFE.LIFE_RENDER_SETUP.TEXT,
+      canvasWidth: CONSTANTS.PLAYER_LIFE.LIFE_RENDER_SETUP.CANVAS_WIDTH,
+      canvasHeight: CONSTANTS.PLAYER_LIFE.LIFE_RENDER_SETUP.CANVAS_HEIGHT,
+      textX: CONSTANTS.PLAYER_LIFE.LIFE_RENDER_SETUP.TEXT_X,
+      textY: CONSTANTS.PLAYER_LIFE.LIFE_RENDER_SETUP.TEXT_Y
     };
   
-    this.x = 120;
-    this.y = -45;
-    this.sprite = 'images/Heart.png';
+    this.x = CONSTANTS.PLAYER_LIFE.SPRITE_X;
+    this.y = CONSTANTS.PLAYER_LIFE.SPRITE_Y;
+    this.sprite = CONSTANTS.PLAYER_LIFE.SPRITE_IMG;
 
 };
 
@@ -30,7 +33,7 @@ PlayerLife.prototype.updateLife = function(value){
 
 // Update the player life on the screen, required method for game
 PlayerLife.prototype.render = function(){
-    scoreCtx.clearRect(120, 0, this.lifeRenderSetup.canvasWidth, this.lifeRenderSetup.canvasHeight);
+    scoreCtx.clearRect(CONSTANTS.PLAYER_LIFE.CANVAS_RECT_X, CONSTANTS.PLAYER_LIFE.CANVAS_RECT_Y, this.lifeRenderSetup.canvasWidth, this.lifeRenderSetup.canvasHeight);
     scoreCtx.font = this.lifeRenderSetup.font;
     scoreCtx.fillText(this.lifeRenderSetup.text + this.life,this.lifeRenderSetup.textX,this.lifeRenderSetup.textY);
     scoreCtx.fillText(this.lifeRenderSetup.text + this.life,this.lifeRenderSetup.textX,this.lifeRenderSetup.textY);

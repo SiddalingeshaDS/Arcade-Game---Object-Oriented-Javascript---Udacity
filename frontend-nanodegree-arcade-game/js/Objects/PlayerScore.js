@@ -4,26 +4,29 @@
 */
 
 var PlayerScore = function(_scoreValDict){
+    if(!CONSTANTS){
+      return;
+    }
     // add score values
-    this.score = 0;
+    this.score = CONSTANTS.PLAYER_SCORE.INITIAL_SCORE;
     this.scoreRenderSetup = {
-      font: "22px Arial",
-      text: "Score: ",
-      canvasWidth: 120,
-      canvasHeight: 101,
-      textX: 10,
-      textY: 50
+      font: CONSTANTS.PLAYER_SCORE.SCORE_RENDER_SETUP.FONT,
+      text: CONSTANTS.PLAYER_SCORE.SCORE_RENDER_SETUP.TEXT,
+      canvasWidth: CONSTANTS.PLAYER_SCORE.SCORE_RENDER_SETUP.CANVAS_WIDTH,
+      canvasHeight: CONSTANTS.PLAYER_SCORE.SCORE_RENDER_SETUP.CANVAS_HEIGHT,
+      textX: CONSTANTS.PLAYER_SCORE.SCORE_RENDER_SETUP.TEXT_X,
+      textY: CONSTANTS.PLAYER_SCORE.SCORE_RENDER_SETUP.TEXT_Y
     };
     _scoreValDict = _scoreValDict || {};
     this.scoreValDict = {
-      finish : _scoreValDict.finish || 5,
-      star: _scoreValDict.star || 5,
-      blueGem: _scoreValDict.blueGem || 10,
-      greenGem: _scoreValDict.greenGem || 15,
-      orangeGem: _scoreValDict.orangeGem || 25,
-      collision: _scoreValDict.collision || -5,
-      offBound: _scoreValDict.offBound || -1,
-      rock: _scoreValDict.rock || 0
+      finish : _scoreValDict.finish || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.FINISH,
+      star: _scoreValDict.star || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.STAR,
+      blueGem: _scoreValDict.blueGem || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.BLUE_GEM,
+      greenGem: _scoreValDict.greenGem || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.GREEN_GEM,
+      orangeGem: _scoreValDict.orangeGem || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.ORANGE_GEM,
+      collision: _scoreValDict.collision || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.COLLISION,
+      offBound: _scoreValDict.offBound || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.OFF_BOUND,
+      rock: _scoreValDict.rock || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.ROCK
     };
 };
 
@@ -34,7 +37,7 @@ PlayerScore.prototype.updateScore = function(value){
 
 // Update the player score on the screen, required method for game
 PlayerScore.prototype.render = function(){
-    scoreCtx.clearRect(0, 0, this.scoreRenderSetup.canvasWidth, this.scoreRenderSetup.canvasHeight);
+    scoreCtx.clearRect(CONSTANTS.PLAYER_SCORE.CANVAS_RECT_X, CONSTANTS.PLAYER_SCORE.CANVAS_RECT_Y, this.scoreRenderSetup.canvasWidth, this.scoreRenderSetup.canvasHeight);
     scoreCtx.font = this.scoreRenderSetup.font;
     scoreCtx.fillText(this.scoreRenderSetup.text + this.score,this.scoreRenderSetup.textX,this.scoreRenderSetup.textY);
     scoreCtx.fillText(this.scoreRenderSetup.text + this.score,this.scoreRenderSetup.textX,this.scoreRenderSetup.textY);

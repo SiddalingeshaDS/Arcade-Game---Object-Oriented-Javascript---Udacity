@@ -9,7 +9,7 @@ var PlayerScore = function(_scoreValDict){
     this.scoreRenderSetup = {
       font: "22px Arial",
       text: "Score: ",
-      canvasWidth: 250,
+      canvasWidth: 120,
       canvasHeight: 101,
       textX: 10,
       textY: 50

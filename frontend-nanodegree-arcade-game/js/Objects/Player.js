@@ -50,6 +50,9 @@ var Player = function(_playerType){
     // add the level object to the player
     this.levelObj = new PlayerLevel();
     this.levelObj.initWithLevel(0);
+  
+    // add the life object to the player
+    this.lifeObj = new PlayerLife(3);
 };
 
 // Move player to next level
@@ -67,6 +70,7 @@ Player.prototype.update = function(){
     allEnemies.forEach(function(enemy) {
         if((((enemy.x + self.collisionRange.x >= self.x) && (enemy.x  - self.x < self.collisionRange.x)) ) && ((self.y >= enemy.y) && (self.y - enemy.y < self.collisionRange.y))){
             self.scoreObj.updateScore(self.scoreObj.scoreValDict.collision);
+            self.lifeObj.updateLife(-1);
             self.reset();
         }
     });
@@ -100,6 +104,7 @@ Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     this.levelObj.render();
     this.scoreObj.render();
+    this.lifeObj.render();
 };
 
 // Handle the input from the user to make player movements

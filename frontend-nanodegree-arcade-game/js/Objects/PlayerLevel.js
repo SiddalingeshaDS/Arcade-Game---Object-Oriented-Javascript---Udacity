@@ -32,6 +32,48 @@ var PlayerLevel = function(){
       'numberOfGreenGems': 1,
       'numberOfOrangeGems': 1,
       'numberOfRocks': 1
+    },
+    {
+      'numberOfEnemies' : 3,
+      'numberOfBlueGems': 2,
+      'numberOfGreenGems': 2,
+      'numberOfOrangeGems': 1,
+      'numberOfRocks': 2
+    },
+    {
+      'numberOfEnemies' : 5,
+      'numberOfBlueGems': 2,
+      'numberOfGreenGems': 2,
+      'numberOfOrangeGems': 1,
+      'numberOfRocks': 2
+    },
+    {
+      'numberOfEnemies' : 5,
+      'numberOfBlueGems': 2,
+      'numberOfGreenGems': 2,
+      'numberOfOrangeGems': 1,
+      'numberOfRocks': 3
+    },
+    {
+      'numberOfEnemies' : 5,
+      'numberOfBlueGems': 2,
+      'numberOfGreenGems': 2,
+      'numberOfOrangeGems': 1,
+      'numberOfRocks': 4
+    },
+    {
+      'numberOfEnemies' : 6,
+      'numberOfBlueGems': 2,
+      'numberOfGreenGems': 2,
+      'numberOfOrangeGems': 1,
+      'numberOfRocks': 5
+    },
+    {
+      'numberOfEnemies' : 8,
+      'numberOfBlueGems': 3,
+      'numberOfGreenGems': 2,
+      'numberOfOrangeGems': 1,
+      'numberOfRocks': 6
     }];
   
     // Level setup values

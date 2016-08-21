@@ -50,7 +50,9 @@ var Engine = (function(global) {
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
-        update(dt);
+        if(gameStarted){
+          update(dt);
+        }
         render();
 
         /* Set our lastTime variable which is used to determine the time delta
@@ -85,7 +87,6 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -140,9 +141,9 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
+      
         renderEntities();
     }
-
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
      * on your enemy and player entities within app.js
@@ -151,15 +152,19 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies, allObjects array and call
          * the render function you have defined.
          */
-         allGameObjects.forEach(function(gameObj) {
-            gameObj.render();
-        });
-      
-        allEnemies.forEach(function(enemy) {
-            enemy.render();
-        });
+        if(gameStarted){
+             allGameObjects.forEach(function(gameObj) {
+                gameObj.render();
+            });
 
-        player.render();
+            allEnemies.forEach(function(enemy) {
+                enemy.render();
+            });
+
+            player.render();
+        }else{
+          game.render();
+        }
     }
 
     /* This function does nothing but it could have been a good place to
@@ -183,7 +188,13 @@ var Engine = (function(global) {
         'images/Gem Blue.png',
         'images/Gem Green.png',
         'images/Gem Orange.png',
-        'images/Rock.png'
+        'images/Rock.png',
+        'images/Selector.png',
+        'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png'
     ]);
     Resources.onReady(init);
 
@@ -193,5 +204,6 @@ var Engine = (function(global) {
      */
     global.ctx = ctx;
     global.scoreCtx = scoreCtx;
+    global.gameStarted = false;
 //    global.levelCtx = levelCtx;
 })(this);

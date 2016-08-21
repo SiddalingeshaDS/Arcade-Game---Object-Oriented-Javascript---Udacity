@@ -11,7 +11,7 @@ var GameObject = function(_objType){
     };
     // Default to Blue Gem
     this.objType = _objType || 'blueGem';
-    _spriteDict = {
+    var _spriteDict = {
       'blueGem' : 'images/Gem Blue.png',
       'greenGem' : 'images/Gem Green.png',
       'orangeGem' : 'images/Gem Orange.png',

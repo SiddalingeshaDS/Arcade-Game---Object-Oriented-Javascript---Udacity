@@ -2,7 +2,7 @@
 * @description Represents a Player
 * @constructor
 */
-var Player = function(){
+var Player = function(_playerType){
     // initial position for the player
     this.initialPositions = {'x' : 200, 'y' : 400};
     
@@ -31,8 +31,17 @@ var Player = function(){
     // initialize the postions before the game begins
     this.x = this.initialPositions.x;
     this.y = this.initialPositions.y;
-    this.sprite = 'images/char-boy.png';
   
+    this.playerType = _playerType || 'boy';
+    var _spriteDict = {
+      'boy' : 'images/char-boy.png',
+      'cat-girl' : 'images/char-cat-girl.png',
+      'horn-girl' : 'images/char-horn-girl.png',
+      'pink-girl': 'images/char-pink-girl.png',
+      'princess-girl': 'images/char-princess-girl.png'
+    };  
+  
+    this.sprite = _spriteDict[this.playerType];
     this.prevMove = '';
   
     // add the score object to the player

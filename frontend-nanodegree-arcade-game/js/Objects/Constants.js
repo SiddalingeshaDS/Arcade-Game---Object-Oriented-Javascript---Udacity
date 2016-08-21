@@ -3,6 +3,21 @@
 */
 CONSTANTS = function(){
   return {
+    //Game Constants
+    'GAME': {
+      
+    },
+    // Enemy Constants
+    'ENEMY': {
+      'CANVAS_WIDTH': 505,
+      'MIN_SPEED': 100,
+      'SPEED_VARIATION': 300,
+      'X_INITIAL_OFFSET': -101,
+      'Y_INITIAL_OFFSET': 60,
+      'ROW_HEIGHT': 83,
+      'NUMBER_OF_PATHS': 3,
+      'SPRITE_IMG': 'images/enemy-bug.png'
+    },
     // Player constants
     'PLAYER': {
       'INITIAL_POSITIONS': {'X' : 200, 'Y' : 400},
@@ -34,6 +49,7 @@ CONSTANTS = function(){
       'DEFAULT_LEVEL': 0,
       'DEFAULT_LIVES': 3
     },
+    // Player level constants
     'PLAYER_LEVEL': {
       'LEVEL_SETUP': [{
           'numberOfEnemies' : 1,
@@ -120,6 +136,7 @@ CONSTANTS = function(){
       'CANVAS_RECT_X': 300,
       'CANVAS_RECT_Y': 0
     },
+    // Player score constants
     'PLAYER_SCORE': {
       'INITIAL_SCORE': 0,
       'SCORE_RENDER_SETUP': {
@@ -143,6 +160,7 @@ CONSTANTS = function(){
       CANVAS_RECT_X: 0,
       CANVAS_RECT_Y: 0
     },
+    // Player life constants
     'PLAYER_LIFE':{
       'INITIAL_LIFE': 3,
       'LIFE_RENDER_SETUP': {

@@ -1,3 +1,4 @@
+// instatiate the player
 var player = new Player();
 
 // This listens for key presses and sends the keys to your
@@ -12,6 +13,7 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+// Get the enemies and the game objects for the level 0
 var allEnemies = player.levelObj.allEnemies;
 var allGameObjects = player.levelObj.allGameObjects;
 

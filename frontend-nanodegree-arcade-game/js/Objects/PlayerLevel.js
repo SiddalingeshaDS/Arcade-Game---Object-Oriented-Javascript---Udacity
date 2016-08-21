@@ -36,7 +36,7 @@ var PlayerLevel = function(){
   
     // Level setup values
     this.levelRenderSetup = {
-      font: "30px Arial",
+      font: "22px Arial",
       text: "Level: ",
       canvasWidth: 253,
       canvasHeight: 101,
@@ -46,6 +46,9 @@ var PlayerLevel = function(){
     this.allEnemies = [];
     this.allGameObjects = [];
     this.allRocks = [];
+    this.x = 280;
+    this.y = -60;
+    this.sprite = 'images/Star.png';
 }
 
 // Update the player score on the screen, required method for game
@@ -53,6 +56,8 @@ PlayerLevel.prototype.render = function(){
     scoreCtx.clearRect(252, 0, this.levelRenderSetup.canvasWidth, this.levelRenderSetup.canvasHeight);
     scoreCtx.font = this.levelRenderSetup.font;
     scoreCtx.fillText(this.levelRenderSetup.text + parseInt(this.level + 1),this.levelRenderSetup.textX,this.levelRenderSetup.textY);
+    scoreCtx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
 };
 
 
@@ -63,8 +68,11 @@ PlayerLevel.prototype.initWithLevel = function(level){
   // The player object in a variable called player
   
   level = level || 0;
-  if(level > (this.levelSetup.length - 1 ))
+  if(level > (this.levelSetup.length - 1 )){
+      gamePhase = 'end';
       return;
+  }
+  this.level = level;
   var levelSetupValues = this.levelSetup[level];
   
   var allEnemies = [];

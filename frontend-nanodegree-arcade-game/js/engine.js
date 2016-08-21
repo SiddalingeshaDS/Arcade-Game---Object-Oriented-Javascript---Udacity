@@ -50,7 +50,7 @@ var Engine = (function(global) {
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
-        if(gameStarted){
+        if(gamePhase === 'ongoing'){
           update(dt);
         }
         render();
@@ -152,7 +152,7 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies, allObjects array and call
          * the render function you have defined.
          */
-        if(gameStarted){
+        if(gamePhase === 'ongoing'){
              allGameObjects.forEach(function(gameObj) {
                 gameObj.render();
             });
@@ -162,7 +162,7 @@ var Engine = (function(global) {
             });
 
             player.render();
-        }else{
+        }else if(gamePhase === 'start' || gamePhase === 'end'){
           game.render();
         }
     }
@@ -190,6 +190,7 @@ var Engine = (function(global) {
         'images/Gem Orange.png',
         'images/Rock.png',
         'images/Selector.png',
+        'images/Star.png',
         'images/char-boy.png',
         'images/char-cat-girl.png',
         'images/char-horn-girl.png',
@@ -204,6 +205,6 @@ var Engine = (function(global) {
      */
     global.ctx = ctx;
     global.scoreCtx = scoreCtx;
-    global.gameStarted = false;
+    global.gamePhase = 'start';
 //    global.levelCtx = levelCtx;
 })(this);

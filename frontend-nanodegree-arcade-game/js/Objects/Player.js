@@ -54,8 +54,7 @@ var Player = function(_playerType){
 
 // Move player to next level
 Player.prototype.moveToNextLevel = function(){
-  this.levelObj.level = this.levelObj.level + 1;
-  this.levelObj.initWithLevel(this.levelObj.level);
+  this.levelObj.initWithLevel(this.levelObj.level + 1);
   allEnemies = this.levelObj.allEnemies;
   allGameObjects = this.levelObj.allGameObjects;
 };

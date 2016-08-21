@@ -36,12 +36,19 @@ var Game = function() {
     this.x = this.initialPositions.x;
     this.y = this.initialPositions.y;
     
-    this.gameRenderSetup = {
+    this.gameStartRenderSetup = {
         font: "22px Arial",
-        text: "Select the player and Hit Enter to Start the Game!",
+        text: "Select the player and Hit Enter to Start the Game.",
         textX: 10,
-        textY: 100
+        textY: 330
       };
+  
+    this.gameEndRenderSetup = {
+        font: "48px Arial",
+        text: "GAME OVER!",
+        textX: 120,
+        textY: 280
+    };
   
     this.sprite = 'images/Selector.png';  
   
@@ -70,13 +77,21 @@ Game.prototype.render = function() {
           ctx.drawImage(Resources.get(rowImages[4]), 4 * 101, (2 * 83) - 50);
     }
     // render the selector image to highlight the selected player
-    ctx.drawImage(Resources.get(this.sprite), this.x, (3 * 83) - 120);
-    ctx.font = this.gameRenderSetup.font;
-    ctx.fillText(this.gameRenderSetup.text,this.gameRenderSetup.textX,this.gameRenderSetup.textY);
-    ctx.fillText(this.gameRenderSetup.text,this.gameRenderSetup.textX,this.gameRenderSetup.textY);
-
-    renderPlayers();
-    ctx.stroke();
+    if(gamePhase === 'start'){
+        ctx.drawImage(Resources.get(this.sprite), this.x, (3 * 83) - 120);
+        ctx.font = this.gameStartRenderSetup.font;
+        ctx.fillText(this.gameStartRenderSetup.text,this.gameStartRenderSetup.textX,this.gameStartRenderSetup.textY);
+        ctx.fillText(this.gameStartRenderSetup.text,this.gameStartRenderSetup.textX,this.gameStartRenderSetup.textY);
+        renderPlayers();
+    }else if(gamePhase === 'end'){
+        ctx.font = this.gameEndRenderSetup.font;
+        ctx.fillStyle = 'red';
+        ctx.fillText(this.gameEndRenderSetup.text,this.gameEndRenderSetup.textX,this.gameEndRenderSetup.textY);
+        ctx.fillText(this.gameEndRenderSetup.text,this.gameEndRenderSetup.textX,this.gameEndRenderSetup.textY);
+        player.scoreObj.render();
+        player.levelObj.render();
+      
+    }
 };
 
 // create an object of the player and start the game
@@ -104,7 +119,7 @@ Game.prototype.startGame = function(){
         player.handleInput(allowedKeys[e.keyCode]);
     });
     document.removeEventListener('keyup', gameEvents);
-    gameStarted = true;
+    gamePhase = 'ongoing';
 };
 
 // Handle the input from the user to make movements

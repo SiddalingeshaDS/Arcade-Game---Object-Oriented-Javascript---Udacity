@@ -103,6 +103,7 @@ Game.prototype.startGame = function(){
         };
         player.handleInput(allowedKeys[e.keyCode]);
     });
+    document.removeEventListener('keyup', gameEvents);
     gameStarted = true;
 };
 

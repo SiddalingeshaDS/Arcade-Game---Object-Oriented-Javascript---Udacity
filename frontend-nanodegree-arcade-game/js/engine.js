@@ -23,11 +23,16 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        lastTime;
+        lastTime,
+        scoreCanvas = doc.createElement('canvas'),
+        scoreCtx = scoreCanvas.getContext('2d');
 
     canvas.width = 505;
     canvas.height = 606;
+    scoreCanvas.width = 505;
+    scoreCanvas.height = 101;
     doc.body.appendChild(canvas);
+    doc.body.appendChild(scoreCanvas);
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -135,7 +140,9 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-
+//        ctx.drawImage(Resources.get(rowImages[row]), 0 * 101, 7 * 83);
+        scoreCtx.font = "30px Arial";
+        scoreCtx.fillText("Score: "+ player.score, 0 * 101, 0 * 83);
         renderEntities();
     }
 
@@ -171,7 +178,8 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Star.png'
     ]);
     Resources.onReady(init);
 
@@ -180,4 +188,5 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
+    global.scoreCtx = scoreCtx;
 })(this);

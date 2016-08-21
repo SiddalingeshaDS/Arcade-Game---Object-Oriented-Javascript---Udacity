@@ -35,13 +35,7 @@ var Player = function(_playerType){
     this.y = this.initialPositions.y;
   
     this.playerType = _playerType || CONSTANTS.PLAYER.DEFAULT_PLAYER_TYPE;
-    var _spriteDict = {
-      'boy': CONSTANTS.PLAYER.SPRITE_DICT.BOY,
-      'cat-girl': CONSTANTS.PLAYER.SPRITE_DICT.CAT_GIRL,
-      'horn-girl': CONSTANTS.PLAYER.SPRITE_DICT.HORN_GIRL,
-      'pink-girl': CONSTANTS.PLAYER.SPRITE_DICT.PINK_GIRL,
-      'princess-girl': CONSTANTS.PLAYER.SPRITE_DICT.PRINCESS_GIRL
-    };  
+    var _spriteDict = CONSTANTS.PLAYER.SPRITE_DICT;  
   
     this.sprite = _spriteDict[this.playerType];
     this.prevMove = CONSTANTS.PLAYER.DEFAULT_PREV_MOVE;

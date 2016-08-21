@@ -110,11 +110,11 @@ CONSTANTS = function(){
       },
       'DEFAULT_PLAYER_TYPE': 'boy',
       'SPRITE_DICT': {
-        'BOY': 'images/char-boy.png',
-        'CAT_GIRL': 'images/char-cat-girl.png',
-        'HORN_GIRL': 'images/char-horn-girl.png',
-        'PINK_GIRL': 'images/char-pink-girl.png',
-        'PRINCESS_GIRL': 'images/char-princess-girl.png'
+        'boy': 'images/char-boy.png',
+        'cat-girl;': 'images/char-cat-girl.png',
+        'horn-girl': 'images/char-horn-girl.png',
+        'pink-girl': 'images/char-pink-girl.png',
+        'princess-girl': 'images/char-princess-girl.png'
       },
       'DEFAULT_PREV_MOVE': '',
       'DEFAULT_LEVEL': 0,

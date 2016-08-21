@@ -95,10 +95,10 @@ Gem.prototype.remove = function() {
 var PlayerScore = function(_scoreValDict){
     // add score values
     this.score = 0;
-    this.scoreSetup = {
+    this.scoreRenderSetup = {
       font: "30px Arial",
       text: "Score: ",
-      canvasWidth: 505,
+      canvasWidth: 250,
       canvasHeight: 101,
       textX: 10,
       textY: 50
@@ -113,7 +113,6 @@ var PlayerScore = function(_scoreValDict){
       collision: _scoreValDict.collision || -5,
       offBound: _scoreValDict.offBound || -1
     };
-  
 };
 
 // Update the score of the player
@@ -123,9 +122,10 @@ PlayerScore.prototype.updateScore = function(value){
 
 // Update the player score on the screen, required method for game
 PlayerScore.prototype.render = function(){
-    scoreCtx.clearRect(0, 0, this.scoreSetup.canvasWidth, this.scoreSetup.canvasHeight);
-    scoreCtx.font = this.scoreSetup.font;
-    scoreCtx.fillText(this.scoreSetup.text + this.score,this.scoreSetup.textX,this.scoreSetup.textY);
+    scoreCtx.clearRect(0, 0, this.scoreRenderSetup.canvasWidth, this.scoreRenderSetup.canvasHeight);
+    scoreCtx.font = this.scoreRenderSetup.font;
+    scoreCtx.fillText(this.scoreRenderSetup.text + this.score,this.scoreRenderSetup.textX,this.scoreRenderSetup.textY);
+    scoreCtx.fillText(this.scoreRenderSetup.text + this.score,this.scoreRenderSetup.textX,this.scoreRenderSetup.textY);
 };
 
 
@@ -170,16 +170,14 @@ var Player = function(){
     this.scoreObj = new PlayerScore();
   
     // add the level object to the player
-    this.level = 0;
     this.levelObj = new PlayerLevel();
     this.levelObj.initWithLevel(0);
 };
 
 // Move player to next level
 Player.prototype.moveToNextLevel = function(){
-  console.log(this.level);
-  this.level = this.level + 1;
-  this.levelObj.initWithLevel(this.level);
+  this.levelObj.level = this.levelObj.level + 1;
+  this.levelObj.initWithLevel(this.levelObj.level);
   allEnemies = this.levelObj.allEnemies;
   allGems = this.levelObj.allGems;
 };
@@ -206,6 +204,7 @@ Player.prototype.update = function(){
 // Draw the player on the screen, required method for game
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    this.levelObj.render();
     this.scoreObj.render();
 };
 
@@ -253,43 +252,62 @@ Player.prototype.reset = function(){
 * @constructor
 */
 var PlayerLevel = function(){
-  this.levelSetup = [{
-    'numberOfEnemies' : 1,
-    'numberOfBlueGems': 1,
-    'numberOfGreenGems': 0,
-    'numberOfOrangeGems': 0
-  },
-  {
-    'numberOfEnemies' : 2,
-    'numberOfBlueGems': 2,
-    'numberOfGreenGems': 0,
-    'numberOfOrangeGems': 0
-  },
-  {
-    'numberOfEnemies' : 3,
-    'numberOfBlueGems': 2,
-    'numberOfGreenGems': 1,
-    'numberOfOrangeGems': 0
-  },
-  {
-    'numberOfEnemies' : 3,
-    'numberOfBlueGems': 2,
-    'numberOfGreenGems': 1,
-    'numberOfOrangeGems': 1
-  }];
+  // Intial level value
+    this.level = 0;
+    this.levelSetup = [{
+      'numberOfEnemies' : 1,
+      'numberOfBlueGems': 1,
+      'numberOfGreenGems': 0,
+      'numberOfOrangeGems': 0
+    },
+    {
+      'numberOfEnemies' : 2,
+      'numberOfBlueGems': 2,
+      'numberOfGreenGems': 0,
+      'numberOfOrangeGems': 0
+    },
+    {
+      'numberOfEnemies' : 3,
+      'numberOfBlueGems': 2,
+      'numberOfGreenGems': 1,
+      'numberOfOrangeGems': 0
+    },
+    {
+      'numberOfEnemies' : 3,
+      'numberOfBlueGems': 2,
+      'numberOfGreenGems': 1,
+      'numberOfOrangeGems': 1
+    }];
   
-  this.allEnemies = [];
-  this.allGems = [];
-
+    // Level setup values
+    this.levelRenderSetup = {
+      font: "30px Arial",
+      text: "Level: ",
+      canvasWidth: 253,
+      canvasHeight: 101,
+      textX: 380,
+      textY: 50
+    };
+    this.allEnemies = [];
+    this.allGems = [];
 }
 
+// Update the player score on the screen, required method for game
+PlayerLevel.prototype.render = function(){
+    scoreCtx.clearRect(252, 0, this.levelRenderSetup.canvasWidth, this.levelRenderSetup.canvasHeight);
+    scoreCtx.font = this.levelRenderSetup.font;
+    scoreCtx.fillText(this.levelRenderSetup.text + this.level,this.levelRenderSetup.textX,this.levelRenderSetup.textY);
+    scoreCtx.fillText(this.levelRenderSetup.text + this.level,this.levelRenderSetup.textX,this.levelRenderSetup.textY);
+};
+
+
+// Instantiate all the objects for a particular level
 PlayerLevel.prototype.initWithLevel = function(level){
   // Instantiating the objects.
   // All enemy objects are in an array called allEnemies
   // The player object in a variable called player
   
   level = level || 0;
-  console.log(this.level);
   if(level > (this.levelSetup.length - 1 ))
       return;
   var levelSetupValues = this.levelSetup[level];

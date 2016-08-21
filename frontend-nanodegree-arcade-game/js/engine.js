@@ -26,14 +26,14 @@ var Engine = (function(global) {
         lastTime,
         scoreCanvas = doc.createElement('canvas'),
         scoreCtx = scoreCanvas.getContext('2d');
-
+    
     canvas.width = 505;
     canvas.height = 606;
     scoreCanvas.width = 505;
     scoreCanvas.height = 101;
     doc.body.appendChild(canvas);
     doc.body.appendChild(scoreCanvas);
-
+  
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
@@ -191,4 +191,5 @@ var Engine = (function(global) {
      */
     global.ctx = ctx;
     global.scoreCtx = scoreCtx;
+//    global.levelCtx = levelCtx;
 })(this);

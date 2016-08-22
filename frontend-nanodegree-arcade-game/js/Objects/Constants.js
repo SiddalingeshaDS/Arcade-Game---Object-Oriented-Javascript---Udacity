@@ -93,6 +93,24 @@ CONSTANTS = (function(){
   var _enemy_initial_y = 60;
   var _enemy_sprite_img = 'images/enemy-bug.png';
   
+  // player constants
+  var _p_initial_x_offset = -2;
+  var _p_initial_x = ((_center_col_number - 1) * _canvasColWidth) + _p_initial_x_offset; //200
+  var _p_initial_y_offset = -98;
+  var _p_initial_y = (_numberOfRows * _canvasRowHeight) + _p_initial_y_offset;
+
+  var _p_limit_right_x = (_numberOfCols - 1) * _canvasColWidth;
+  var _p_limit_top_y = 0;
+  var _p_limit_bottom_y = (_numberOfRows * _canvasRowHeight) + _p_initial_y_offset;
+  
+  var _p_collision_range_x = 80;
+  var _p_collision_range_y = 63;
+  
+  var _p_default_player_type = 'boy';
+  var _p_default_level = 0;
+  var _p_default_lives = 3;
+  
+  
   return {
     // Engine Constants
     'ENGINE': {
@@ -194,34 +212,28 @@ CONSTANTS = (function(){
     },
     // Player constants
     'PLAYER': {
-      'INITIAL_POSITIONS': {'X': 200, 'Y': 400},
+      'INITIAL_POSITIONS': {'X': _p_initial_x, 'Y': _p_initial_y},
       'OFFSETS': {        
-        'LEFT': {'X': -101, 'Y': 0},
-        'UP': {'X': 0, 'Y': -83},
-        'RIGHT': {'X': 101, 'Y': 0},
-        'DOWN': {'X': 0, 'Y': 83}
+        'LEFT': {'X': -(_canvasColWidth), 'Y': 0},
+        'UP': {'X': 0, 'Y': -(_canvasRowHeight)},
+        'RIGHT': {'X': _canvasColWidth, 'Y': 0},
+        'DOWN': {'X': 0, 'Y': _canvasRowHeight}
       },
       'LIMITS': {
-        'LEFT_X': -83,
-        'RIGHT_X': 422,
-        'TOP_Y': 0,
-        'BOTTOM_Y': 400
+        'LEFT_X': _p_initial_x_offset,
+        'RIGHT_X': _p_limit_right_x,
+        'TOP_Y': _p_limit_top_y,
+        'BOTTOM_Y': _p_limit_bottom_y
       },
       'COLLISION_RANGE': {
-        'X': 80,
-        'Y': 63
+        'X': _p_collision_range_x,
+        'Y': _p_collision_range_y
       },
-      'DEFAULT_PLAYER_TYPE': 'boy',
-      'SPRITE_DICT': {
-        'boy': 'images/char-boy.png',
-        'cat-girl': 'images/char-cat-girl.png',
-        'horn-girl': 'images/char-horn-girl.png',
-        'pink-girl': 'images/char-pink-girl.png',
-        'princess-girl': 'images/char-princess-girl.png'
-      },
+      'DEFAULT_PLAYER_TYPE': _p_default_player_type,
+      'SPRITE_DICT': _game_players,
       'DEFAULT_PREV_MOVE': '',
-      'DEFAULT_LEVEL': 0,
-      'DEFAULT_LIVES': 3
+      'DEFAULT_LEVEL': _p_default_level,
+      'DEFAULT_LIVES': _p_default_lives
     },
     // Player level constants
     'PLAYER_LEVEL': {

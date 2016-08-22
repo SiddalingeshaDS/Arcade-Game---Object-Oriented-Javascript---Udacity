@@ -109,7 +109,6 @@ Player.prototype.handleInput = function(keyCode){
     if(this.checkLimits(keyCode)){
         this.x += this.offsets[keyCode].x;
         this.y += this.offsets[keyCode].y;
-        console.log(keyCode,this.offsets[keyCode].x,this.offsets[keyCode].y);
     }else{
         this.prevMove = '';
         this.reset();

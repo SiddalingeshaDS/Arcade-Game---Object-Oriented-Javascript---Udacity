@@ -1,19 +1,21 @@
 /**
 * @description Constants Object to hold the values
 */
-CONSTANTS = (function(){
+var parameters;
+CONSTANTS = (function(params){
+  params = params || {};
   
-  var _canvasColWidth = 101;
-  var _canvasRowHeight = 83;
+  var _canvasColWidth = params.canvasWidth || 101;
+  var _canvasRowHeight = params.canvasHeight || 83;
   
-  var _numberOfRows = 6;
-  var _numberOfCols = 5; 
+  var _numberOfRows = (params.numberOfRows || 6) > 6 ? params.numberOfRows : 6;
+  var _numberOfCols = (params.numberOfCols || 5) > 5 ? params.numberOfCols : 5; 
   
   var _numberOfStonePaths = _numberOfRows - 3;
   var _centerRowNumber = Math.ceil(_numberOfStonePaths/2);
   var _centerColNumber = Math.ceil(_numberOfCols/2);
   
-  var _imgLoadList = [
+  var _imgLoadList = params.imgList || [
         'images/stone-block.png',
         'images/water-block.png',
         'images/grass-block.png',
@@ -36,25 +38,25 @@ CONSTANTS = (function(){
   
   // engine constants
   var _backgroundRowImages = [];
-  _backgroundRowImages[0] = 'images/water-block.png';
+  _backgroundRowImages[0] = params.topImg || 'images/water-block.png';
   for(var i=1; i<= _numberOfStonePaths; i++){
-    _backgroundRowImages[i] = 'images/stone-block.png';
+    _backgroundRowImages[i] = params.pathImg || 'images/stone-block.png';
   }
-  _backgroundRowImages[_numberOfRows - 2] = 'images/grass-block.png';
-  _backgroundRowImages[_numberOfRows - 1] = 'images/grass-block.png';
+  _backgroundRowImages[_numberOfRows - 2] = params.bottomImg || 'images/grass-block.png';
+  _backgroundRowImages[_numberOfRows - 1] = params.bottomImg || 'images/grass-block.png';
   
-  var _paddingBottom = 108;
+  var _paddingBottom = params.paddingBottom || 108;
   
   var _canvasWidth = _numberOfCols * _canvasColWidth;
   var _canvasHeight = _numberOfRows * _canvasRowHeight + _paddingBottom;
   
-  var _scoreCanvasHeight = 100;
+  var _scoreCanvasHeight = params.scoreCanvasHeight || 100;
   
   // game constants
   var _game_initialPosX = _canvasColWidth * (_centerColNumber - 3);
   var _game_limitLeftX = _game_initialPosX;
   var _game_limitRightX = _canvasColWidth * (_centerColNumber + 1);
-  var _game_players = {
+  var _game_players = params.gamePlayers || {
       'boy': 'images/char-boy.png',
       'cat-girl': 'images/char-cat-girl.png',
       'horn-girl': 'images/char-horn-girl.png',
@@ -96,8 +98,8 @@ CONSTANTS = (function(){
   var _game_spriteImgY = (_centerRowNumber * _canvasRowHeight) + _game_spriteImgOffsetY;
       
   // game objects constants
-  var _go_defaultObjType = 'blueGem';
-  var _go_spriteDict = {
+  var _go_defaultObjType = params.defaultObjType || 'blueGem';
+  var _go_spriteDict = params.objSpriteDict || {
         'blueGem' : 'images/Gem Blue.png',
         'greenGem' : 'images/Gem Green.png',
         'orangeGem' : 'images/Gem Orange.png',
@@ -108,37 +110,37 @@ CONSTANTS = (function(){
   
   
   // enemy constants
-  var _enemy_min_speed = 100;
-  var _enemy_speed_variation = 300;
-  var _enemy_initial_y = 60;
-  var _enemy_sprite_img = 'images/enemy-bug.png';
+  var _enemy_minSpeed = params.enemyMinSpeed || 100;
+  var _enemy_speedVariation = params.enemySpeedVariation || 300;
+  var _enemy_initalY = 60;
+  var _enemy_spriteImg = params.enemySpriteImg || 'images/enemy-bug.png';
   
   // player constants
-  var _p_initial_x_offset = -2;
-  var _p_initial_x = ((_centerColNumber - 1) * _canvasColWidth) + _p_initial_x_offset; //200
-  var _p_initial_y_offset = -98;
-  var _p_initial_y = (_numberOfRows * _canvasRowHeight) + _p_initial_y_offset;
+  var _p_initialOffsetX = -2;
+  var _p_initialX = ((_centerColNumber - 1) * _canvasColWidth) + _p_initialOffsetX; //200
+  var _p_initialOffsetY = -98;
+  var _p_initialY = (_numberOfRows * _canvasRowHeight) + _p_initialOffsetY;
 
-  var _p_limit_right_x = (_numberOfCols - 1) * _canvasColWidth;
-  var _p_limit_top_y = 0;
-  var _p_limit_bottom_y = (_numberOfRows * _canvasRowHeight) + _p_initial_y_offset;
+  var _p_limitRightX = (_numberOfCols - 1) * _canvasColWidth;
+  var _p_limitTopY = 0;
+  var _p_limitBottomY = (_numberOfRows * _canvasRowHeight) + _p_initialOffsetY;
   
-  var _p_collision_range_x = 80;
-  var _p_collision_range_y = 63;
+  var _p_collisionRangeX = params.collisionRangeX || 80;
+  var _p_collisionRangeY = params.collisionRangeY || 63;
   
-  var _p_default_player_type = 'boy';
-  var _p_default_level = 0;
-  var _p_default_lives = 3;
+  var _p_defaultPlayerType = params.defaultPlayerType || 'boy';
+  var _p_defaultLevel = 0;
+  var _p_defaultLives = 3;
   
-  var _score_text_y_offset = 50;
-  var _score_canvas_y = 0;
+  var _scoreTextOffsetY = 50;
+  var _scoreCanvasY = 0;
 
   // player score constants
-  var _p_score_canvas_width = 0.24 * _canvasWidth;
-  var _p_score_x_offset = 10;
-  var _p_canvas_x = 0;
-  var _p_score_x = _p_canvas_x + _p_score_x_offset;
-  var _p_score_default_val = {
+  var _p_score_canvasWidth = 0.24 * _canvasWidth;
+  var _p_score_offsetX = 10;
+  var _p_score_canvasX = 0;
+  var _p_score_x = _p_score_canvasX + _p_score_offsetX;
+  var _p_score_defaultVal = params.scoreVal || {
         'FINISH': 5,
         'STAR': 5,
         'BLUE_GEM': 10,
@@ -150,20 +152,20 @@ CONSTANTS = (function(){
       };
   
   // player life constants
-  var _p_life_canvas_width = 0.36 * _canvasWidth;
-  var _p_life_x_offset = 100;
-  var _p_life_x = _p_score_canvas_width + _p_life_x_offset;
-  var _p_life_sprite_x = _p_score_canvas_width;
-  var _p_life_sprite_y = -45;
-  var _p_life_sprite_img = 'images/Heart.png';
+  var _p_life_canvasWidth = 0.36 * _canvasWidth;
+  var _p_life_offsetX = 100;
+  var _p_life_x = _p_score_canvasWidth + _p_life_offsetX;
+  var _p_life_spriteX = _p_score_canvasWidth;
+  var _p_life_spriteY = -45;
+  var _p_life_spriteImg = params.lifeSpriteImg || 'images/Heart.png';
   
   // player level constants
-  var _p_lev_canvas_width = 0.4 * _canvasWidth;
-  var _p_lev_x_offset = 100;
-  var _p_lev_x = _p_score_canvas_width + _p_life_canvas_width + _p_lev_x_offset;
-  var _p_lev_sprite_x = _p_score_canvas_width + _p_life_canvas_width;
-  var _p_lev_sprite_y = -60;
-  var _p_lev_sprite_img = 'images/Star.png';
+  var _p_lev_canvasWidth = 0.4 * _canvasWidth;
+  var _p_lev_offsetX = 100;
+  var _p_lev_x = _p_score_canvasWidth + _p_life_canvasWidth + _p_lev_offsetX;
+  var _p_lev_spriteX = _p_score_canvasWidth + _p_life_canvasWidth;
+  var _p_lev_spriteY = -60;
+  var _p_lev_spriteImg = params.levelSpriteImg || 'images/Star.png';
   
   
   return {
@@ -239,17 +241,17 @@ CONSTANTS = (function(){
     // Enemy Constants
     'ENEMY': {
       'CANVAS_WIDTH': _canvasWidth,
-      'MIN_SPEED': _enemy_min_speed,
-      'SPEED_VARIATION': _enemy_speed_variation,
+      'MIN_SPEED': _enemy_minSpeed,
+      'SPEED_VARIATION': _enemy_speedVariation,
       'X_INITIAL_OFFSET': -(_canvasColWidth),
-      'Y_INITIAL_OFFSET': _enemy_initial_y,
+      'Y_INITIAL_OFFSET': _enemy_initalY,
       'ROW_HEIGHT': _canvasRowHeight,
       'NUMBER_OF_PATHS': _numberOfStonePaths,
-      'SPRITE_IMG': _enemy_sprite_img
+      'SPRITE_IMG': _enemy_spriteImg
     },
     // Player constants
     'PLAYER': {
-      'INITIAL_POSITIONS': {'X': _p_initial_x, 'Y': _p_initial_y},
+      'INITIAL_POSITIONS': {'X': _p_initialX, 'Y': _p_initialY},
       'OFFSETS': {        
         'LEFT': {'X': -(_canvasColWidth), 'Y': 0},
         'UP': {'X': 0, 'Y': -(_canvasRowHeight)},
@@ -257,20 +259,20 @@ CONSTANTS = (function(){
         'DOWN': {'X': 0, 'Y': _canvasRowHeight}
       },
       'LIMITS': {
-        'LEFT_X': _p_initial_x_offset,
-        'RIGHT_X': _p_limit_right_x,
-        'TOP_Y': _p_limit_top_y,
-        'BOTTOM_Y': _p_limit_bottom_y
+        'LEFT_X': _p_initialOffsetX,
+        'RIGHT_X': _p_limitRightX,
+        'TOP_Y': _p_limitTopY,
+        'BOTTOM_Y': _p_limitBottomY
       },
       'COLLISION_RANGE': {
-        'X': _p_collision_range_x,
-        'Y': _p_collision_range_y
+        'X': _p_collisionRangeX,
+        'Y': _p_collisionRangeY
       },
-      'DEFAULT_PLAYER_TYPE': _p_default_player_type,
+      'DEFAULT_PLAYER_TYPE': _p_defaultPlayerType,
       'SPRITE_DICT': _game_players,
       'DEFAULT_PREV_MOVE': '',
-      'DEFAULT_LEVEL': _p_default_level,
-      'DEFAULT_LIVES': _p_default_lives
+      'DEFAULT_LEVEL': _p_defaultLevel,
+      'DEFAULT_LIVES': _p_defaultLives
     },
     // Player level constants
     'PLAYER_LEVEL': {
@@ -344,20 +346,20 @@ CONSTANTS = (function(){
           'numberOfOrangeGems': 1,
           'numberOfRocks': 6
         }],
-      'INITIAL_LEVEL': _p_default_level,
+      'INITIAL_LEVEL': _p_defaultLevel,
       'LEVEL_RENDER_SETUP': {
         'FONT': "22px Arial",
         'TEXT': "Level: ",
-        'CANVAS_WIDTH': _p_lev_canvas_width,
+        'CANVAS_WIDTH': _p_lev_canvasWidth,
         'CANVAS_HEIGHT': _scoreCanvasHeight,
         'TEXT_X': _p_lev_x,
-        'TEXT_Y': _score_text_y_offset
+        'TEXT_Y': _scoreTextOffsetY
       },
-      'SPRITE_X': _p_lev_sprite_x,
-      'SPRITE_Y': _p_lev_sprite_y,
-      'SPRITE_IMG': _p_lev_sprite_img,
-      'CANVAS_RECT_X': _p_lev_sprite_x,
-      'CANVAS_RECT_Y': _score_canvas_y
+      'SPRITE_X': _p_lev_spriteX,
+      'SPRITE_Y': _p_lev_spriteY,
+      'SPRITE_IMG': _p_lev_spriteImg,
+      'CANVAS_RECT_X': _p_lev_spriteX,
+      'CANVAS_RECT_Y': _scoreCanvasY
     },
     // Player score constants
     'PLAYER_SCORE': {
@@ -365,14 +367,14 @@ CONSTANTS = (function(){
       'SCORE_RENDER_SETUP': {
         'FONT': "22px Arial",
         'TEXT': "Score: ",
-        'CANVAS_WIDTH': _p_score_canvas_width,
+        'CANVAS_WIDTH': _p_score_canvasWidth,
         'CANVAS_HEIGHT': _scoreCanvasHeight,
         'TEXT_X': _p_score_x,
-        'TEXT_Y': _score_text_y_offset
+        'TEXT_Y': _scoreTextOffsetY
       },
-      'DEFAULT_SCORE_VALUES': _p_score_default_val,
-      CANVAS_RECT_X: _p_canvas_x,
-      CANVAS_RECT_Y: _score_canvas_y
+      'DEFAULT_SCORE_VALUES': _p_score_defaultVal,
+      CANVAS_RECT_X: _p_score_canvasX,
+      CANVAS_RECT_Y: _scoreCanvasY
     },
     // Player life constants
     'PLAYER_LIFE':{
@@ -380,17 +382,17 @@ CONSTANTS = (function(){
       'LIFE_RENDER_SETUP': {
         'FONT': "22px Arial",
         'TEXT': "Lives: ",
-        'CANVAS_WIDTH': _p_life_canvas_width,
+        'CANVAS_WIDTH': _p_life_canvasWidth,
         'CANVAS_HEIGHT': _scoreCanvasHeight,
         'TEXT_X': _p_life_x,
-        'TEXT_Y': _score_text_y_offset
+        'TEXT_Y': _scoreTextOffsetY
       },
-      'SPRITE_X': _p_life_sprite_x,
-      'SPRITE_Y': _p_life_sprite_y,
-      'SPRITE_IMG': _p_life_sprite_img,
-      'CANVAS_RECT_X': _p_life_sprite_x,
-      'CANVAS_RECT_Y': _score_canvas_y
+      'SPRITE_X': _p_life_spriteX,
+      'SPRITE_Y': _p_life_spriteY,
+      'SPRITE_IMG': _p_life_spriteImg,
+      'CANVAS_RECT_X': _p_life_spriteX,
+      'CANVAS_RECT_Y': _scoreCanvasY
     }
   };
 
-})();
+})(parameters);

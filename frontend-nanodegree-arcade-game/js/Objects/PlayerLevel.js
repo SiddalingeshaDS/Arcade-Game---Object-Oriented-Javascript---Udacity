@@ -3,34 +3,35 @@
 * @constructor
 */
 var PlayerLevel = function(){
-  if(!CONSTANTS){
-    return;
-  }
-  // Intial level value
-    this.level = CONSTANTS.PLAYER_LEVEL.INITIAL_LEVEL;
-    this.levelSetup = CONSTANTS.PLAYER_LEVEL.LEVEL_SETUP;
+  
+    // get the constant values for the player level
+    this.CONSTANTS = CONSTANT_FUNCTION('PLAYER_LEVEL');
+  
+    // Intial level value
+    this.level = this.CONSTANTS.INITIAL_LEVEL;
+    this.levelSetup = this.CONSTANTS.LEVEL_SETUP;
   
     // Level setup values
     this.levelRenderSetup = {
-      font: CONSTANTS.PLAYER_LEVEL.LEVEL_RENDER_SETUP.FONT,
-      text: CONSTANTS.PLAYER_LEVEL.LEVEL_RENDER_SETUP.TEXT,
-      canvasWidth: CONSTANTS.PLAYER_LEVEL.LEVEL_RENDER_SETUP.CANVAS_WIDTH,
-      canvasHeight: CONSTANTS.PLAYER_LEVEL.LEVEL_RENDER_SETUP.CANVAS_HEIGHT,
-      textX: CONSTANTS.PLAYER_LEVEL.LEVEL_RENDER_SETUP.TEXT_X,
-      textY: CONSTANTS.PLAYER_LEVEL.LEVEL_RENDER_SETUP.TEXT_Y
+      font: this.CONSTANTS.LEVEL_RENDER_SETUP.FONT,
+      text: this.CONSTANTS.LEVEL_RENDER_SETUP.TEXT,
+      canvasWidth: this.CONSTANTS.LEVEL_RENDER_SETUP.CANVAS_WIDTH,
+      canvasHeight: this.CONSTANTS.LEVEL_RENDER_SETUP.CANVAS_HEIGHT,
+      textX: this.CONSTANTS.LEVEL_RENDER_SETUP.TEXT_X,
+      textY: this.CONSTANTS.LEVEL_RENDER_SETUP.TEXT_Y
     };
   
     this.allEnemies = [];
     this.allGameObjects = [];
     this.allRocks = [];
-    this.x = CONSTANTS.PLAYER_LEVEL.SPRITE_X;
-    this.y = CONSTANTS.PLAYER_LEVEL.SPRITE_Y;
-    this.sprite = CONSTANTS.PLAYER_LEVEL.SPRITE_IMG;
+    this.x = this.CONSTANTS.SPRITE_X;
+    this.y = this.CONSTANTS.SPRITE_Y;
+    this.sprite = this.CONSTANTS.SPRITE_IMG;
 }
 
 // Update the player score on the screen, required method for game
 PlayerLevel.prototype.render = function(){
-    scoreCtx.clearRect(CONSTANTS.PLAYER_LEVEL.CANVAS_RECT_X, CONSTANTS.PLAYER_LEVEL.CANVAS_RECT_Y, this.levelRenderSetup.canvasWidth, this.levelRenderSetup.canvasHeight);
+    scoreCtx.clearRect(this.CONSTANTS.CANVAS_RECT_X, this.CONSTANTS.CANVAS_RECT_Y, this.levelRenderSetup.canvasWidth, this.levelRenderSetup.canvasHeight);
     scoreCtx.font = this.levelRenderSetup.font;
     scoreCtx.fillText(this.levelRenderSetup.text + parseInt(this.level + 1),this.levelRenderSetup.textX,this.levelRenderSetup.textY);
     scoreCtx.drawImage(Resources.get(this.sprite), this.x, this.y);

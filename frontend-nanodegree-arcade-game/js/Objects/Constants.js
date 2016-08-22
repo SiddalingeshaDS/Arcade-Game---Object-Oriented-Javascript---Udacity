@@ -1,10 +1,10 @@
 /**
-* @description Constants Object to hold the values
+* @description Constants Wrapper that returns a function that can be called with parameters to hold the values
 */
 var parameters;
-CONSTANTS = (function(params){
+
+function ConstantWrapper(params){
   params = params || {};
-  
   var _canvasColWidth = params.canvasWidth || 101;
   var _canvasRowHeight = params.canvasHeight || 83;
   
@@ -168,7 +168,8 @@ CONSTANTS = (function(params){
   var _p_lev_spriteImg = params.levelSpriteImg || 'images/Star.png';
   
   
-  return {
+  return function(key){
+    return {
     // Engine Constants
     'ENGINE': {
       'CANVAS_MAIN': {
@@ -393,6 +394,9 @@ CONSTANTS = (function(params){
       'CANVAS_RECT_X': _p_life_spriteX,
       'CANVAS_RECT_Y': _scoreCanvasY
     }
+  }[key];
   };
+};
 
-})(parameters);
+var CONSTANT_FUNCTION = ConstantWrapper(parameters);
+

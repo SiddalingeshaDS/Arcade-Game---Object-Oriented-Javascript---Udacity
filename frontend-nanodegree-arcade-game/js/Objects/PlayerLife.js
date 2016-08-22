@@ -4,22 +4,23 @@
 */
 
 var PlayerLife = function(_lifeVal){
-    if(!CONSTANTS){
-      return;
-    }
-    this.life = _lifeVal || CONSTANTS.PLAYER_LIFE.INITIAL_LIFE;
+
+    // get the constant values for the player life
+    this.CONSTANTS = CONSTANT_FUNCTION('PLAYER_LIFE');
+  
+    this.life = _lifeVal || this.CONSTANTS.INITIAL_LIFE;
     this.lifeRenderSetup = {
-      font: CONSTANTS.PLAYER_LIFE.LIFE_RENDER_SETUP.FONT,
-      text: CONSTANTS.PLAYER_LIFE.LIFE_RENDER_SETUP.TEXT,
-      canvasWidth: CONSTANTS.PLAYER_LIFE.LIFE_RENDER_SETUP.CANVAS_WIDTH,
-      canvasHeight: CONSTANTS.PLAYER_LIFE.LIFE_RENDER_SETUP.CANVAS_HEIGHT,
-      textX: CONSTANTS.PLAYER_LIFE.LIFE_RENDER_SETUP.TEXT_X,
-      textY: CONSTANTS.PLAYER_LIFE.LIFE_RENDER_SETUP.TEXT_Y
+      font: this.CONSTANTS.LIFE_RENDER_SETUP.FONT,
+      text: this.CONSTANTS.LIFE_RENDER_SETUP.TEXT,
+      canvasWidth: this.CONSTANTS.LIFE_RENDER_SETUP.CANVAS_WIDTH,
+      canvasHeight: this.CONSTANTS.LIFE_RENDER_SETUP.CANVAS_HEIGHT,
+      textX: this.CONSTANTS.LIFE_RENDER_SETUP.TEXT_X,
+      textY: this.CONSTANTS.LIFE_RENDER_SETUP.TEXT_Y
     };
   
-    this.x = CONSTANTS.PLAYER_LIFE.SPRITE_X;
-    this.y = CONSTANTS.PLAYER_LIFE.SPRITE_Y;
-    this.sprite = CONSTANTS.PLAYER_LIFE.SPRITE_IMG;
+    this.x = this.CONSTANTS.SPRITE_X;
+    this.y = this.CONSTANTS.SPRITE_Y;
+    this.sprite = this.CONSTANTS.SPRITE_IMG;
 
 };
 
@@ -33,7 +34,7 @@ PlayerLife.prototype.updateLife = function(value){
 
 // Update the player life on the screen, required method for game
 PlayerLife.prototype.render = function(){
-    scoreCtx.clearRect(CONSTANTS.PLAYER_LIFE.CANVAS_RECT_X, CONSTANTS.PLAYER_LIFE.CANVAS_RECT_Y, this.lifeRenderSetup.canvasWidth, this.lifeRenderSetup.canvasHeight);
+    scoreCtx.clearRect(this.CONSTANTS.CANVAS_RECT_X, this.CONSTANTS.CANVAS_RECT_Y, this.lifeRenderSetup.canvasWidth, this.lifeRenderSetup.canvasHeight);
     scoreCtx.font = this.lifeRenderSetup.font;
     scoreCtx.fillText(this.lifeRenderSetup.text + this.life,this.lifeRenderSetup.textX,this.lifeRenderSetup.textY);
     scoreCtx.fillText(this.lifeRenderSetup.text + this.life,this.lifeRenderSetup.textX,this.lifeRenderSetup.textY);

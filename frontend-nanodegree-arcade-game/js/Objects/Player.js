@@ -3,51 +3,53 @@
 * @constructor
 */
 var Player = function(_playerType){
+
+    // get the constant values for the player
+    this.CONSTANTS = CONSTANT_FUNCTION('PLAYER');
+  
     // initial position for the player
-    if(!CONSTANTS)
-      return;
-    this.initialPositions = {'x': CONSTANTS.PLAYER.INITIAL_POSITIONS.X, 'y': CONSTANTS.PLAYER.INITIAL_POSITIONS.Y};
+    this.initialPositions = {'x': this.CONSTANTS.INITIAL_POSITIONS.X, 'y': this.CONSTANTS.INITIAL_POSITIONS.Y};
     
     // coordinates to be added to handle the user inputs
     this.offsets = {
-        'left': {'x': CONSTANTS.PLAYER.OFFSETS.LEFT.X, 'y': CONSTANTS.PLAYER.OFFSETS.LEFT.Y},
-        'up': {'x': CONSTANTS.PLAYER.OFFSETS.UP.X, 'y': CONSTANTS.PLAYER.OFFSETS.UP.Y},
-        'right': {'x': CONSTANTS.PLAYER.OFFSETS.RIGHT.X, 'y': CONSTANTS.PLAYER.OFFSETS.RIGHT.Y},
-        'down': {'x': CONSTANTS.PLAYER.OFFSETS.DOWN.X, 'y': CONSTANTS.PLAYER.OFFSETS.DOWN.Y}
+        'left': {'x': this.CONSTANTS.OFFSETS.LEFT.X, 'y': this.CONSTANTS.OFFSETS.LEFT.Y},
+        'up': {'x': this.CONSTANTS.OFFSETS.UP.X, 'y': this.CONSTANTS.OFFSETS.UP.Y},
+        'right': {'x': this.CONSTANTS.OFFSETS.RIGHT.X, 'y': this.CONSTANTS.OFFSETS.RIGHT.Y},
+        'down': {'x': this.CONSTANTS.OFFSETS.DOWN.X, 'y': this.CONSTANTS.OFFSETS.DOWN.Y}
     };
     
     // coordinate limits to check if the player is off bounds
     this.limits = {
-        'leftX': CONSTANTS.PLAYER.LIMITS.LEFT_X,
-        'rightX': CONSTANTS.PLAYER.LIMITS.RIGHT_X,
-        'topY': CONSTANTS.PLAYER.LIMITS.TOP_Y,
-        'bottomY': CONSTANTS.PLAYER.LIMITS.BOTTOM_Y
+        'leftX': this.CONSTANTS.LIMITS.LEFT_X,
+        'rightX': this.CONSTANTS.LIMITS.RIGHT_X,
+        'topY': this.CONSTANTS.LIMITS.TOP_Y,
+        'bottomY': this.CONSTANTS.LIMITS.BOTTOM_Y
     }
     
     // collision range for the player
     this.collisionRange = {
-        'x': CONSTANTS.PLAYER.COLLISION_RANGE.X,
-        'y': CONSTANTS.PLAYER.COLLISION_RANGE.Y
+        'x': this.CONSTANTS.COLLISION_RANGE.X,
+        'y': this.CONSTANTS.COLLISION_RANGE.Y
     };
     
     // initialize the postions before the game begins
     this.x = this.initialPositions.x;
     this.y = this.initialPositions.y;
   
-    this.playerType = _playerType || CONSTANTS.PLAYER.DEFAULT_PLAYER_TYPE;
-    var _spriteDict = CONSTANTS.PLAYER.SPRITE_DICT;  
+    this.playerType = _playerType || this.CONSTANTS.DEFAULT_PLAYER_TYPE;
+    var _spriteDict = this.CONSTANTS.SPRITE_DICT;  
     this.sprite = _spriteDict[this.playerType];
-    this.prevMove = CONSTANTS.PLAYER.DEFAULT_PREV_MOVE;
+    this.prevMove = this.CONSTANTS.DEFAULT_PREV_MOVE;
   
     // add the score object to the player
     this.scoreObj = new PlayerScore();
   
     // add the level object to the player
     this.levelObj = new PlayerLevel();
-    this.levelObj.initWithLevel(CONSTANTS.PLAYER.DEFAULT_LEVEL);
+    this.levelObj.initWithLevel(this.CONSTANTS.DEFAULT_LEVEL);
   
     // add the life object to the player
-    this.lifeObj = new PlayerLife(CONSTANTS.PLAYER.DEFAULT_LIVES);
+    this.lifeObj = new PlayerLife(this.CONSTANTS.DEFAULT_LIVES);
 };
 
 // Move player to next level

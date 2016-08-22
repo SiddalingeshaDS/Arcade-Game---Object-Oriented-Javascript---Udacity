@@ -4,70 +4,72 @@
 * @constructor
 */
 var Game = function() {
-    if(!CONSTANTS){
-      return;
-    }
+  
+    // get the constant values for the game
+    this.CONSTANTS = CONSTANT_FUNCTION('GAME');
+  
     // initial position
-    this.initialPositions = {'x': CONSTANTS.GAME.INITIAL_POSITIONS.X};
-    this.playerNum = CONSTANTS.GAME.INITIAL_PLAYER_NUM;
+    this.initialPositions = {'x': this.CONSTANTS.INITIAL_POSITIONS.X};
+    this.playerNum = this.CONSTANTS.INITIAL_PLAYER_NUM;
     
     // coordinates to be added to handle the user inputs
     this.offsets = {
-        'left': {'x': CONSTANTS.GAME.OFFSETS.LEFT.X },
-        'right': {'x': CONSTANTS.GAME.OFFSETS.RIGHT.X }
+        'left': {'x': this.CONSTANTS.OFFSETS.LEFT.X },
+        'right': {'x': this.CONSTANTS.OFFSETS.RIGHT.X }
     };
     
     // coordinate limits to check if the player is off bounds
     this.limits = {
-        'leftX': CONSTANTS.GAME.LIMITS.LEFT_X,
-        'rightX': CONSTANTS.GAME.LIMITS.RIGHT_X
+        'leftX': this.CONSTANTS.LIMITS.LEFT_X,
+        'rightX': this.CONSTANTS.LIMITS.RIGHT_X
     };
   
     this.playerOffsets = {
-      'left':  CONSTANTS.GAME.PLAYER_OFFSETS.LEFT,
-      'right': CONSTANTS.GAME.PLAYER_OFFSETS.RIGHT
+      'left':  this.CONSTANTS.PLAYER_OFFSETS.LEFT,
+      'right': this.CONSTANTS.PLAYER_OFFSETS.RIGHT
     };
     // set of player types available
-    this.playerTypes =CONSTANTS.GAME.PLAYER_TYPES;
+    this.playerTypes =this.CONSTANTS.PLAYER_TYPES;
   
     // initialize the postions 
     this.x = this.initialPositions.x;
     
     this.gameStartRenderSetup = {
-        font: CONSTANTS.GAME.GAME_START_RENDER_SETUP.FONT,
-        text: CONSTANTS.GAME.GAME_START_RENDER_SETUP.TEXT,
-        textX: CONSTANTS.GAME.GAME_START_RENDER_SETUP.TEXT_X,
-        textY: CONSTANTS.GAME.GAME_START_RENDER_SETUP.TEXT_Y
+        font: this.CONSTANTS.GAME_START_RENDER_SETUP.FONT,
+        text: this.CONSTANTS.GAME_START_RENDER_SETUP.TEXT,
+        textX: this.CONSTANTS.GAME_START_RENDER_SETUP.TEXT_X,
+        textY: this.CONSTANTS.GAME_START_RENDER_SETUP.TEXT_Y
       };
   
     this.gameEndRenderSetup = {
-        font: CONSTANTS.GAME.GAME_END_RENDER_SETUP.FONT,
-        text: CONSTANTS.GAME.GAME_END_RENDER_SETUP.TEXT,
-        fillStyle: CONSTANTS.GAME.GAME_END_RENDER_SETUP.FILL_STYLE,
-        textX: CONSTANTS.GAME.GAME_END_RENDER_SETUP.TEXT_X,
-        textY: CONSTANTS.GAME.GAME_END_RENDER_SETUP.TEXT_Y
+        font: this.CONSTANTS.GAME_END_RENDER_SETUP.FONT,
+        text: this.CONSTANTS.GAME_END_RENDER_SETUP.TEXT,
+        fillStyle: this.CONSTANTS.GAME_END_RENDER_SETUP.FILL_STYLE,
+        textX: this.CONSTANTS.GAME_END_RENDER_SETUP.TEXT_X,
+        textY: this.CONSTANTS.GAME_END_RENDER_SETUP.TEXT_Y
     };
   
-    this.sprite = CONSTANTS.GAME.SPRITE_IMG;  
+    this.sprite = this.CONSTANTS.SPRITE_IMG;  
   
   // updated when player is selected
-    this.player = CONSTANTS.GAME.INITIAL_PLAYER;
+    this.player = this.CONSTANTS.INITIAL_PLAYER;
 };
 
 
 // Draw the game on the screen, required method for game
 Game.prototype.render = function() {
-
+  var self = this;
   // render the images of the players in the second row
     function renderPlayers() {
-        var rowImages = CONSTANTS.GAME.BACKGROUND_ROW_IMAGES;
+        
+        var rowImages = self.CONSTANTS.BACKGROUND_ROW_IMAGES;
         for(var i=0; i < rowImages.length; i++){
-          ctx.drawImage(Resources.get(rowImages[i]), CONSTANTS.GAME.BACKGROUND_IMG_COORDINATES[i].X, CONSTANTS.GAME.BACKGROUND_IMG_COORDINATES[i].Y);
+          ctx.drawImage(Resources.get(rowImages[i]), self.CONSTANTS.BACKGROUND_IMG_COORDINATES[i].X, self.CONSTANTS.BACKGROUND_IMG_COORDINATES[i].Y);
         }
     }
     // render the selector image to highlight the selected player
     if(gamePhase === 'start'){
-        ctx.drawImage(Resources.get(this.sprite), this.x, CONSTANTS.GAME.SPRITE_IMG_Y);
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.CONSTANTS.SPRITE_IMG_Y);
         ctx.font = this.gameStartRenderSetup.font;
         ctx.fillText(this.gameStartRenderSetup.text,this.gameStartRenderSetup.textX,this.gameStartRenderSetup.textY);
         ctx.fillText(this.gameStartRenderSetup.text,this.gameStartRenderSetup.textX,this.gameStartRenderSetup.textY);

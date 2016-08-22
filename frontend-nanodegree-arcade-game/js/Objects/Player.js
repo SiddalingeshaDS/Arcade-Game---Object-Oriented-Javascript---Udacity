@@ -13,7 +13,7 @@ var Player = function(_playerType){
         'left': {'x': CONSTANTS.PLAYER.OFFSETS.LEFT.X, 'y': CONSTANTS.PLAYER.OFFSETS.LEFT.Y},
         'up': {'x': CONSTANTS.PLAYER.OFFSETS.UP.X, 'y': CONSTANTS.PLAYER.OFFSETS.UP.Y},
         'right': {'x': CONSTANTS.PLAYER.OFFSETS.RIGHT.X, 'y': CONSTANTS.PLAYER.OFFSETS.RIGHT.Y},
-        'down': {'x': CONSTANTS.PLAYER.OFFSETS.DOWN.X, 'y': CONSTANTS.PLAYER.OFFSETS.LEFT.Y}
+        'down': {'x': CONSTANTS.PLAYER.OFFSETS.DOWN.X, 'y': CONSTANTS.PLAYER.OFFSETS.DOWN.Y}
     };
     
     // coordinate limits to check if the player is off bounds
@@ -109,6 +109,7 @@ Player.prototype.handleInput = function(keyCode){
     if(this.checkLimits(keyCode)){
         this.x += this.offsets[keyCode].x;
         this.y += this.offsets[keyCode].y;
+        console.log(keyCode,this.offsets[keyCode].x,this.offsets[keyCode].y);
     }else{
         this.prevMove = '';
         this.reset();

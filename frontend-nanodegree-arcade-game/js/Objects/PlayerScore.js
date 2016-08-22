@@ -3,7 +3,7 @@
 * @constructor
 */
 
-var PlayerScore = function(_scoreValDict){
+var PlayerScore = function(){
     if(!CONSTANTS){
       return;
     }
@@ -17,17 +17,18 @@ var PlayerScore = function(_scoreValDict){
       textX: CONSTANTS.PLAYER_SCORE.SCORE_RENDER_SETUP.TEXT_X,
       textY: CONSTANTS.PLAYER_SCORE.SCORE_RENDER_SETUP.TEXT_Y
     };
-    _scoreValDict = _scoreValDict || {};
-    this.scoreValDict = {
-      finish: _scoreValDict.finish || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.FINISH,
-      star: _scoreValDict.star || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.STAR,
-      blueGem: _scoreValDict.blueGem || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.BLUE_GEM,
-      greenGem: _scoreValDict.greenGem || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.GREEN_GEM,
-      orangeGem: _scoreValDict.orangeGem || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.ORANGE_GEM,
-      collision: _scoreValDict.collision || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.COLLISION,
-      offBound: _scoreValDict.offBound || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.OFF_BOUND,
-      rock: _scoreValDict.rock || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.ROCK
-    };
+//    _scoreValDict = _scoreValDict || {};
+    this.scoreValDict = CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES;
+//    {
+//      finish: _scoreValDict.finish || ,
+//      star: _scoreValDict.star || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.STAR,
+//      blueGem: _scoreValDict.blueGem || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.BLUE_GEM,
+//      greenGem: _scoreValDict.greenGem || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.GREEN_GEM,
+//      orangeGem: _scoreValDict.orangeGem || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.ORANGE_GEM,
+//      collision: _scoreValDict.collision || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.COLLISION,
+//      offBound: _scoreValDict.offBound || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.OFF_BOUND,
+//      rock: _scoreValDict.rock || CONSTANTS.PLAYER_SCORE.DEFAULT_SCORE_VALUES.ROCK
+//    };
 };
 
 // Update the score of the player

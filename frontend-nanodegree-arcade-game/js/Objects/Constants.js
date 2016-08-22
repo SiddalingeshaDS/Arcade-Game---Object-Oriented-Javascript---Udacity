@@ -141,14 +141,14 @@ CONSTANTS = (function(params){
   var _p_score_canvasX = 0;
   var _p_score_x = _p_score_canvasX + _p_score_offsetX;
   var _p_score_defaultVal = params.scoreVal || {
-        'FINISH': 5,
-        'STAR': 5,
-        'BLUE_GEM': 10,
-        'GREEN_GEM': 15,
-        'ORANGE_GEM': 25,
-        'COLLISION': -5,
-        'OFF_BOUND': -1,
-        'ROCK': 0
+        'finish': 5,
+        'star': 5,
+        'blueGem': 10,
+        'greenGem': 15,
+        'orangeGem': 25,
+        'collision': -5,
+        'offBound': -1,
+        'rock': 0
       };
   
   // player life constants

@@ -1,6 +1,7 @@
 var Init = (function(global){
+  CONSTANT_FUNCTION = ConstantWrapper();
   // instantiate the game
-  var game = new Game();
+  game = new Game();
 
   // This listens for key presses and sends the keys to your
   // Game.handleInput() method.
@@ -13,7 +14,7 @@ var Init = (function(global){
       game.handleInput(allowedKeys[e.keyCode]);
   }
   document.addEventListener('keyup', gameEvents);
-  
-  Engine(global, game);
   global.gameEvents = gameEvents;
+  
+  Engine(global);
 })(this);

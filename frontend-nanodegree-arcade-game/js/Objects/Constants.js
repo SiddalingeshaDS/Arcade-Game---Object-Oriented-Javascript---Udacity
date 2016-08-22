@@ -1,8 +1,6 @@
 /**
 * @description Constants Wrapper that returns a function that can be called with parameters to hold the values
 */
-var parameters;
-
 function ConstantWrapper(params){
   params = params || {};
   var _canvasColWidth = params.canvasWidth || 101;
@@ -398,5 +396,5 @@ function ConstantWrapper(params){
   };
 };
 
-var CONSTANT_FUNCTION = ConstantWrapper(parameters);
+
 

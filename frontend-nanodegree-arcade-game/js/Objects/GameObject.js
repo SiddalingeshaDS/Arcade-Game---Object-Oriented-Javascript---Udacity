@@ -22,13 +22,13 @@ var GameObject = function(_objType){
     var _xOffset = CONSTANTS.GAME_OBJECTS.X_INITIAL_OFFSET;
     var _yOffset = CONSTANTS.GAME_OBJECTS.Y_INITIAL_OFFSET;
     var _rowHeight = CONSTANTS.GAME_OBJECTS.ROW_HEIGHT; // rowHeight of the blocks where the game objects can be placed
-    var _rowWidth = CONSTANTS.GAME_OBJECTS.ROW_WIDTH; // rowWidth of the blocks where the game objects can be placed
+    var _colWidth = CONSTANTS.GAME_OBJECTS.COL_WIDTH; // rowWidth of the blocks where the game objects can be placed
 
     // Random initialization of the x and y value to be placed anywhere on the three block paths
-    this.rowNum = (Math.floor(CONSTANTS.GAME_OBJECTS.NUMBER_OF_ROWS * Math.random(Date.now())));
     this.colNum = (Math.floor(CONSTANTS.GAME_OBJECTS.NUMBER_OF_COLS * Math.random(Date.now())));
-    this.x = _xOffset + ( _rowWidth * this.rowNum);
-    this.y = _yOffset + ( _rowHeight * this.colNum);
+    this.rowNum = (Math.floor(CONSTANTS.GAME_OBJECTS.NUMBER_OF_ROWS * Math.random(Date.now())));
+    this.x = _xOffset + ( _colWidth * this.colNum);
+    this.y = _yOffset + ( _rowHeight * this.rowNum);
 }
 
 // Draw the game object on the screen, required method for game

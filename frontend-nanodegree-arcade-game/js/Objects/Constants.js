@@ -11,9 +11,10 @@ CONSTANTS = (function(){
   
   var _number_of_stone_paths = _numberOfRows - 3;
   var _center_row_number = Math.ceil(_number_of_stone_paths/2);
-  
   var _center_col_number = Math.ceil(_numberOfCols/2);
   
+  
+  // engine constants
   var _background_row_images = [];
   _background_row_images[0] = 'images/water-block.png';
   for(var i=1; i<= _number_of_stone_paths; i++){
@@ -74,7 +75,36 @@ CONSTANTS = (function(){
   var _game_sprite_img_y_offset = -36;
   var _game_sprite_img_y = (_center_row_number * _canvasRowHeight) + _game_sprite_img_y_offset;
       
+  // game objects constants
+  var _go_hide_offsets = {
+      'TOP_X': -(_canvasColWidth),
+      'TOP_Y': -(_canvasRowHeight)
+    };
+  var _go_default_obj_type = 'blueGem';
+  var _go_sprite_dict = {
+        'blueGem' : 'images/Gem Blue.png',
+        'greenGem' : 'images/Gem Green.png',
+        'orangeGem' : 'images/Gem Orange.png',
+        'rock': 'images/Rock.png'
+      };
+  var _go_initial_x_offset = 0;
+  var _go_initial_y_offset = 60;
   
+  var _go_row_height = _canvasRowHeight; //83
+  var _go_col_width = _canvasColWidth; //101
+  
+  var _go_no_rows = _number_of_stone_paths; 
+  var _go_no_cols = _numberOfCols; 
+  
+  // enemy constants
+  var _enemy_canvasWidth = _canvasWidth;
+  var _enemy_min_speed = 100;
+  var _enemy_speed_variation = 300;
+  var _enemy_initial_x = -(_canvasColWidth); //-101
+  var _enemy_initial_y = 60;
+  var _enemy_row_height = _canvasRowHeight; //83
+  var _enemy_no_of_paths = _number_of_stone_paths;
+  var _enemy_sprite_img = 'images/enemy-bug.png'
   
   return {
     // Engine Constants
@@ -151,34 +181,26 @@ CONSTANTS = (function(){
     },
     // Game Objects constants
     'GAME_OBJECTS': {
-      'HIDE_OFFSETS': {
-        'TOP_X': -101,
-        'TOP_Y': -83
-      },
-      'DEFAULT_OBJ_TYPE': 'blueGem',
-      'SPRITE_DICT': {
-        'blueGem' : 'images/Gem Blue.png',
-        'greenGem' : 'images/Gem Green.png',
-        'orangeGem' : 'images/Gem Orange.png',
-        'rock': 'images/Rock.png'
-      },
-      'X_INITIAL_OFFSET': 0,
-      'Y_INITIAL_OFFSET': 60,
-      'ROW_HEIGHT': 83,
-      'ROW_WIDTH': 101,
-      'NUMBER_OF_ROWS': 5,
-      'NUMBER_OF_COLS': 3
+      'HIDE_OFFSETS': _go_hide_offsets,
+      'DEFAULT_OBJ_TYPE': _go_default_obj_type,
+      'SPRITE_DICT': _go_sprite_dict,
+      'X_INITIAL_OFFSET': _go_initial_x_offset,
+      'Y_INITIAL_OFFSET': _go_initial_y_offset,
+      'ROW_HEIGHT': _go_row_height,
+      'COL_WIDTH': _go_col_width,
+      'NUMBER_OF_ROWS': _go_no_rows,
+      'NUMBER_OF_COLS': _go_no_cols
     },
     // Enemy Constants
     'ENEMY': {
-      'CANVAS_WIDTH': _canvasWidth,
-      'MIN_SPEED': 100,
-      'SPEED_VARIATION': 300,
-      'X_INITIAL_OFFSET': -101,
-      'Y_INITIAL_OFFSET': 60,
-      'ROW_HEIGHT': 83,
-      'NUMBER_OF_PATHS': 3,
-      'SPRITE_IMG': 'images/enemy-bug.png'
+      'CANVAS_WIDTH': _enemy_canvasWidth,
+      'MIN_SPEED': _enemy_min_speed,
+      'SPEED_VARIATION': _enemy_speed_variation,
+      'X_INITIAL_OFFSET': _enemy_initial_x,
+      'Y_INITIAL_OFFSET': _enemy_initial_y,
+      'ROW_HEIGHT': _enemy_row_height,
+      'NUMBER_OF_PATHS': _enemy_no_of_paths,
+      'SPRITE_IMG': _enemy_sprite_img
     },
     // Player constants
     'PLAYER': {

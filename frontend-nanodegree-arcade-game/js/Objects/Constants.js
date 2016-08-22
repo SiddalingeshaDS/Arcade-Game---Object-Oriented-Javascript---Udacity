@@ -116,7 +116,7 @@ CONSTANTS = (function(){
   // player score constants
   var _p_score_canvas_width = 0.24 * _canvasWidth;
   var _p_score_x_offset = 10;
-  var _p_canvas_x = ((_center_col_number - 3) * _canvasColWidth);
+  var _p_canvas_x = 0;
   var _p_score_x = _p_canvas_x + _p_score_x_offset;
   var _p_score_default_val = {
         'FINISH': 5,
@@ -131,18 +131,17 @@ CONSTANTS = (function(){
   
   // player life constants
   var _p_life_canvas_width = 0.36 * _canvasWidth;
-  var _p_life_x_offset = 18;
-  var _p_life_x = ((_center_col_number - 1) * _canvasColWidth) + _p_life_x_offset;
+  var _p_life_x_offset = 100;
+  var _p_life_x = _p_score_canvas_width + _p_life_x_offset;
   var _p_life_sprite_x = _p_score_canvas_width;
   var _p_life_sprite_y = -45;
   
   // player level constants
   var _p_lev_canvas_width = 0.4 * _canvasWidth;
-  var _p_lev_x_offset = -4;
-  var _p_lev_x = ((_center_col_number + 1) * _canvasColWidth) + _p_lev_x_offset;
+  var _p_lev_x_offset = 100;
+  var _p_lev_x = _p_score_canvas_width + _p_life_canvas_width + _p_lev_x_offset;
   var _p_lev_sprite_x = _p_score_canvas_width + _p_life_canvas_width;
   var _p_lev_sprite_y = -60;
-  
   
   
   return {

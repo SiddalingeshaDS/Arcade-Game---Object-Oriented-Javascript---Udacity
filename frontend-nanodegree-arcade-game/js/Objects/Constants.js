@@ -76,10 +76,6 @@ CONSTANTS = (function(){
   var _game_sprite_img_y = (_center_row_number * _canvasRowHeight) + _game_sprite_img_y_offset;
       
   // game objects constants
-  var _go_hide_offsets = {
-      'TOP_X': -(_canvasColWidth),
-      'TOP_Y': -(_canvasRowHeight)
-    };
   var _go_default_obj_type = 'blueGem';
   var _go_sprite_dict = {
         'blueGem' : 'images/Gem Blue.png',
@@ -90,21 +86,12 @@ CONSTANTS = (function(){
   var _go_initial_x_offset = 0;
   var _go_initial_y_offset = 60;
   
-  var _go_row_height = _canvasRowHeight; //83
-  var _go_col_width = _canvasColWidth; //101
-  
-  var _go_no_rows = _number_of_stone_paths; 
-  var _go_no_cols = _numberOfCols; 
   
   // enemy constants
-  var _enemy_canvasWidth = _canvasWidth;
   var _enemy_min_speed = 100;
   var _enemy_speed_variation = 300;
-  var _enemy_initial_x = -(_canvasColWidth); //-101
   var _enemy_initial_y = 60;
-  var _enemy_row_height = _canvasRowHeight; //83
-  var _enemy_no_of_paths = _number_of_stone_paths;
-  var _enemy_sprite_img = 'images/enemy-bug.png'
+  var _enemy_sprite_img = 'images/enemy-bug.png';
   
   return {
     // Engine Constants
@@ -181,25 +168,28 @@ CONSTANTS = (function(){
     },
     // Game Objects constants
     'GAME_OBJECTS': {
-      'HIDE_OFFSETS': _go_hide_offsets,
+      'HIDE_OFFSETS': {
+        'TOP_X': -(_canvasColWidth),
+        'TOP_Y': -(_canvasRowHeight)
+      },
       'DEFAULT_OBJ_TYPE': _go_default_obj_type,
       'SPRITE_DICT': _go_sprite_dict,
       'X_INITIAL_OFFSET': _go_initial_x_offset,
       'Y_INITIAL_OFFSET': _go_initial_y_offset,
-      'ROW_HEIGHT': _go_row_height,
-      'COL_WIDTH': _go_col_width,
-      'NUMBER_OF_ROWS': _go_no_rows,
-      'NUMBER_OF_COLS': _go_no_cols
+      'ROW_HEIGHT': _canvasRowHeight,
+      'COL_WIDTH': _canvasColWidth,
+      'NUMBER_OF_ROWS': _number_of_stone_paths,
+      'NUMBER_OF_COLS': _numberOfCols
     },
     // Enemy Constants
     'ENEMY': {
-      'CANVAS_WIDTH': _enemy_canvasWidth,
+      'CANVAS_WIDTH': _canvasWidth,
       'MIN_SPEED': _enemy_min_speed,
       'SPEED_VARIATION': _enemy_speed_variation,
-      'X_INITIAL_OFFSET': _enemy_initial_x,
+      'X_INITIAL_OFFSET': -(_canvasColWidth),
       'Y_INITIAL_OFFSET': _enemy_initial_y,
-      'ROW_HEIGHT': _enemy_row_height,
-      'NUMBER_OF_PATHS': _enemy_no_of_paths,
+      'ROW_HEIGHT': _canvasRowHeight,
+      'NUMBER_OF_PATHS': _number_of_stone_paths,
       'SPRITE_IMG': _enemy_sprite_img
     },
     // Player constants

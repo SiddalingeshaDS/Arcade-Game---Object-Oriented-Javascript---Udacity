@@ -36,7 +36,6 @@ var Player = function(_playerType){
   
     this.playerType = _playerType || CONSTANTS.PLAYER.DEFAULT_PLAYER_TYPE;
     var _spriteDict = CONSTANTS.PLAYER.SPRITE_DICT;  
-  
     this.sprite = _spriteDict[this.playerType];
     this.prevMove = CONSTANTS.PLAYER.DEFAULT_PREV_MOVE;
   

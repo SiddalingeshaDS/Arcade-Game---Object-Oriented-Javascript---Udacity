@@ -153,7 +153,7 @@ CONSTANTS = function(){
       'DEFAULT_PLAYER_TYPE': 'boy',
       'SPRITE_DICT': {
         'boy': 'images/char-boy.png',
-        'cat-girl;': 'images/char-cat-girl.png',
+        'cat-girl': 'images/char-cat-girl.png',
         'horn-girl': 'images/char-horn-girl.png',
         'pink-girl': 'images/char-pink-girl.png',
         'princess-girl': 'images/char-princess-girl.png'

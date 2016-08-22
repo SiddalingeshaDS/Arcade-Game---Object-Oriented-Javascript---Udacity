@@ -110,6 +110,40 @@ CONSTANTS = (function(){
   var _p_default_level = 0;
   var _p_default_lives = 3;
   
+  var _score_text_y_offset = 50;
+  var _score_canvas_y = 0;
+
+  // player score constants
+  var _p_score_canvas_width = 0.24 * _canvasWidth;
+  var _p_score_x_offset = 10;
+  var _p_canvas_x = ((_center_col_number - 3) * _canvasColWidth);
+  var _p_score_x = _p_canvas_x + _p_score_x_offset;
+  var _p_score_default_val = {
+        'FINISH': 5,
+        'STAR': 5,
+        'BLUE_GEM': 10,
+        'GREEN_GEM': 15,
+        'ORANGE_GEM': 25,
+        'COLLISION': -5,
+        'OFF_BOUND': -1,
+        'ROCK': 0
+      };
+  
+  // player life constants
+  var _p_life_canvas_width = 0.36 * _canvasWidth;
+  var _p_life_x_offset = 18;
+  var _p_life_x = ((_center_col_number - 1) * _canvasColWidth) + _p_life_x_offset;
+  var _p_life_sprite_x = _p_score_canvas_width;
+  var _p_life_sprite_y = -45;
+  
+  // player level constants
+  var _p_lev_canvas_width = 0.4 * _canvasWidth;
+  var _p_lev_x_offset = -4;
+  var _p_lev_x = ((_center_col_number + 1) * _canvasColWidth) + _p_lev_x_offset;
+  var _p_lev_sprite_x = _p_score_canvas_width + _p_life_canvas_width;
+  var _p_lev_sprite_y = -60;
+  
+  
   
   return {
     // Engine Constants
@@ -307,20 +341,20 @@ CONSTANTS = (function(){
           'numberOfOrangeGems': 1,
           'numberOfRocks': 6
         }],
-      'INITIAL_LEVEL': 0,
+      'INITIAL_LEVEL': _p_default_level,
       'LEVEL_RENDER_SETUP': {
         'FONT': "22px Arial",
         'TEXT': "Level: ",
-        'CANVAS_WIDTH': 203,
-        'CANVAS_HEIGHT': 101,
-        'TEXT_X': 400,
-        'TEXT_Y': 50
+        'CANVAS_WIDTH': _p_lev_canvas_width,
+        'CANVAS_HEIGHT': _scoreCanvasHeight,
+        'TEXT_X': _p_lev_x,
+        'TEXT_Y': _score_text_y_offset
       },
-      'SPRITE_X': 300,
-      'SPRITE_Y': -60,
+      'SPRITE_X': _p_lev_sprite_x,
+      'SPRITE_Y': _p_lev_sprite_y,
       'SPRITE_IMG': 'images/Star.png',
-      'CANVAS_RECT_X': 300,
-      'CANVAS_RECT_Y': 0
+      'CANVAS_RECT_X': _p_lev_sprite_x,
+      'CANVAS_RECT_Y': _score_canvas_y
     },
     // Player score constants
     'PLAYER_SCORE': {
@@ -328,23 +362,14 @@ CONSTANTS = (function(){
       'SCORE_RENDER_SETUP': {
         'FONT': "22px Arial",
         'TEXT': "Score: ",
-        'CANVAS_WIDTH': 120,
-        'CANVAS_HEIGHT': 101,
-        'TEXT_X': 10,
-        'TEXT_Y': 50
+        'CANVAS_WIDTH': _p_score_canvas_width,
+        'CANVAS_HEIGHT': _scoreCanvasHeight,
+        'TEXT_X': _p_score_x,
+        'TEXT_Y': _score_text_y_offset
       },
-      'DEFAULT_SCORE_VALUES': {
-        'FINISH': 5,
-        'STAR': 5,
-        'BLUE_GEM': 10,
-        'GREEN_GEM': 15,
-        'ORANGE_GEM': 25,
-        'COLLISION': -5,
-        'OFF_BOUND': -1,
-        'ROCK': 0
-      },
-      CANVAS_RECT_X: 0,
-      CANVAS_RECT_Y: 0
+      'DEFAULT_SCORE_VALUES': _p_score_default_val,
+      CANVAS_RECT_X: _p_canvas_x,
+      CANVAS_RECT_Y: _score_canvas_y
     },
     // Player life constants
     'PLAYER_LIFE':{
@@ -352,16 +377,16 @@ CONSTANTS = (function(){
       'LIFE_RENDER_SETUP': {
         'FONT': "22px Arial",
         'TEXT': "Lives: ",
-        'CANVAS_WIDTH': 180,
-        'CANVAS_HEIGHT': 101,
-        'TEXT_X': 220,
-        'TEXT_Y': 50
+        'CANVAS_WIDTH': _p_life_canvas_width,
+        'CANVAS_HEIGHT': _scoreCanvasHeight,
+        'TEXT_X': _p_life_x,
+        'TEXT_Y': _score_text_y_offset
       },
-      'SPRITE_X': 120,
-      'SPRITE_Y': -45,
+      'SPRITE_X': _p_life_sprite_x,
+      'SPRITE_Y': _p_life_sprite_y,
       'SPRITE_IMG': 'images/Heart.png',
-      'CANVAS_RECT_X': 120,
-      'CANVAS_RECT_Y': 0
+      'CANVAS_RECT_X': _p_life_sprite_x,
+      'CANVAS_RECT_Y': _score_canvas_y
     }
   };
 

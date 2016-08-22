@@ -8,13 +8,13 @@ var Game = function() {
       return;
     }
     // initial position
-    this.initialPositions = {'x': CONSTANTS.GAME.INITIAL_POSITIONS.X, 'y': CONSTANTS.GAME.INITIAL_POSITIONS.Y};
+    this.initialPositions = {'x': CONSTANTS.GAME.INITIAL_POSITIONS.X};
     this.playerNum = CONSTANTS.GAME.INITIAL_PLAYER_NUM;
     
     // coordinates to be added to handle the user inputs
     this.offsets = {
-        'left': {'x': CONSTANTS.GAME.OFFSETS.LEFT.X, 'y': CONSTANTS.GAME.OFFSETS.LEFT.Y },
-        'right': {'x': CONSTANTS.GAME.OFFSETS.RIGHT.X, 'y': CONSTANTS.GAME.OFFSETS.RIGHT.Y }
+        'left': {'x': CONSTANTS.GAME.OFFSETS.LEFT.X },
+        'right': {'x': CONSTANTS.GAME.OFFSETS.RIGHT.X }
     };
     
     // coordinate limits to check if the player is off bounds
@@ -32,7 +32,6 @@ var Game = function() {
   
     // initialize the postions 
     this.x = this.initialPositions.x;
-    this.y = this.initialPositions.y;
     
     this.gameStartRenderSetup = {
         font: CONSTANTS.GAME.GAME_START_RENDER_SETUP.FONT,
@@ -131,7 +130,6 @@ Game.prototype.handleInput = function(keyCode){
 // Check the limits and reset the values if the action is off bounds
 Game.prototype.checkLimits = function(keyCode){
     var _tempX = this.x + this.offsets[keyCode].x;
-    var _tempY = this.y + this.offsets[keyCode].y;
     if(_tempX < this.limits.leftX || _tempX > this.limits.rightX){
         return false;
     }

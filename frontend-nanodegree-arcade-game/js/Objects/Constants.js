@@ -1,30 +1,97 @@
 /**
 * @description Constants Object to hold the values
 */
-CONSTANTS = function(){
+CONSTANTS = (function(){
+  
+  var _canvasColWidth = 101;
+  var _canvasRowHeight = 83;
+  
+  var _numberOfRows = 6;
+  var _numberOfCols = 5; 
+  
+  var _number_of_stone_paths = _numberOfRows - 3;
+  var _center_row_number = Math.ceil(_number_of_stone_paths/2);
+  
+  var _center_col_number = Math.ceil(_numberOfCols/2);
+  
+  var _background_row_images = [];
+  _background_row_images[0] = 'images/water-block.png';
+  for(var i=1; i<= _number_of_stone_paths; i++){
+    _background_row_images[i] = 'images/stone-block.png';
+  }
+  _background_row_images[_numberOfRows - 2] = 'images/grass-block.png';
+  _background_row_images[_numberOfRows - 1] = 'images/grass-block.png';
+  
+  var _paddingBottom = 108;
+  
+  var _canvasWidth = _numberOfCols * _canvasColWidth;
+  var _canvasHeight = _numberOfRows * _canvasRowHeight + _paddingBottom;
+  
+  var _scoreCanvasHeight = 100;
+  
+  // game constants
+  var _game_initial_pos_x = _canvasColWidth * (_center_col_number - 3);
+  var _game_limit_left_x = _game_initial_pos_x;
+  var _game_limit_right_x = _canvasColWidth * (_center_col_number + 1);
+  var _game_players = {
+      'boy': 'images/char-boy.png',
+      'cat-girl': 'images/char-cat-girl.png',
+      'horn-girl': 'images/char-horn-girl.png',
+      'pink-girl': 'images/char-pink-girl.png',
+      'princess-girl': 'images/char-princess-girl.png'
+    };
+  var _game_player_types = [];
+  var _game_bg_images = [];
+  for(var _player_type in _game_players){
+     if (_game_players.hasOwnProperty(_player_type)) {
+       _game_player_types.push(_player_type);
+       _game_bg_images.push(_game_players[_player_type]);
+    }
+  }
+  
+  var _game_img_coordinates_y_offset = -50;
+  var _game_bg_img_coordinates = [];
+  var _number_of_player_types = _game_player_types.length;
+  
+  for(var i=0; i<_number_of_player_types; i++){
+    var _temp = _game_limit_left_x + i * _canvasColWidth;
+    _game_bg_img_coordinates[i] = {'X': _temp, 'Y': (_center_row_number * _canvasRowHeight) + _game_img_coordinates_y_offset};
+  }
+  
+  var _game_start_x_offset = 10;
+  var _game_start_x = ((_center_col_number - 3) * _canvasColWidth) + _game_start_x_offset;
+  
+  var _game_start_y_offset = 81;
+  var _game_start_y = ((_center_row_number + 1) * _canvasRowHeight) + _game_start_y_offset;
+  
+  
+  var _game_end_x_offset = -1;
+  var _game_end_x = ((_center_col_number - 2) * _canvasColWidth) + _game_end_x_offset;
+  
+  var _game_end_y_offset = 114;
+  var _game_end_y = ((_center_row_number) * _canvasRowHeight) + _game_end_y_offset;
+  
+  var _game_sprite_img_y_offset = -36;
+  var _game_sprite_img_y = (_center_row_number * _canvasRowHeight) + _game_sprite_img_y_offset;
+      
+  
+  
   return {
     // Engine Constants
     'ENGINE': {
       'CANVAS_MAIN': {
-        'WIDTH': 505,
-        'HEIGHT': 606
+        'WIDTH': _canvasWidth,
+        'HEIGHT': _canvasHeight
       },
       'CANVAS_SCORE': {
-        'WIDTH': 505,
-        'HEIGHT': 101
+        'WIDTH': _canvasWidth,
+        'HEIGHT': _scoreCanvasHeight
       },
-      'BACKGROUND_ROW_IMAGES': [
-          'images/water-block.png',   // Top row is water
-          'images/stone-block.png',   // Row 1 of 3 of stone
-          'images/stone-block.png',   // Row 2 of 3 of stone
-          'images/stone-block.png',   // Row 3 of 3 of stone
-          'images/grass-block.png',   // Row 1 of 2 of grass
-          'images/grass-block.png'    // Row 2 of 2 of grass
-        ],
-      'NUMBER_OF_ROWS': 6,
-      'NUMBER_OF_COLS': 5,
-      'COL_WIDTH': 101,
-      'ROW_HEIGHT': 83,
+      'BACKGROUND_ROW_IMAGES': _background_row_images,
+      'NUMBER_OF_ROWS': _numberOfRows,
+      'NUMBER_OF_COLS': _numberOfCols,
+      'ROW_HEIGHT': _canvasRowHeight,
+      'COL_WIDTH': _canvasColWidth,
       'IMG_LOAD_LIST': [
         'images/stone-block.png',
         'images/water-block.png',
@@ -47,57 +114,39 @@ CONSTANTS = function(){
     },
     // Game Constants
     'GAME': {
-      'INITIAL_POSITIONS': {'X': 0, 'Y': 213},
+      'INITIAL_POSITIONS': {'X': _game_initial_pos_x},
       'INITIAL_PLAYER_NUM': 0,
       'OFFSETS': {        
-        'LEFT': {'X': -101, 'Y': 0},
-        'RIGHT': {'X': 101, 'Y': 0}
+        'LEFT': {'X': -(_canvasColWidth) },
+        'RIGHT': {'X': _canvasColWidth }
       },
       'LIMITS': {
-        'LEFT_X': 0,
-        'RIGHT_X': 422
+        'LEFT_X': _game_limit_left_x,
+        'RIGHT_X': _game_limit_right_x
       },
       'PLAYER_OFFSETS': {
         'LEFT': -1,
         'RIGHT': 1
       },
-      'PLAYER_TYPES': [
-        'boy',
-        'cat-girl',
-        'horn-girl',
-        'pink-girl',
-        'princess-girl'
-      ],
+      'PLAYER_TYPES': _game_player_types,
       'GAME_START_RENDER_SETUP': {
         'FONT': "22px Arial",
         'TEXT': "Select the player and Hit Enter to Start the Game.",
-        'TEXT_X': 10,
-        'TEXT_Y': 330
+        'TEXT_X': _game_start_x,
+        'TEXT_Y': _game_start_y
       },
       'GAME_END_RENDER_SETUP': {
         'FONT': "50px Arial",
         'TEXT': "GAME OVER!",
         'FILL_STYLE': 'red',
-        'TEXT_X': 100,
-        'TEXT_Y': 280
+        'TEXT_X': _game_end_x,
+        'TEXT_Y': _game_end_y
       },
       'INITIAL_PLAYER': null,
-      'BACKGROUND_ROW_IMAGES': [
-            'images/char-boy.png',   // Boy
-            'images/char-cat-girl.png',   // Cat Girl
-            'images/char-horn-girl.png',   // Horn Girl
-            'images/char-pink-girl.png',   // Pink Girl
-            'images/char-princess-girl.png'   // Princess Girl
-          ],
-      'BACKGROUND_IMG_COORDINATES': [
-        {'X': 0, 'Y': 116},
-        {'X': 101, 'Y': 116},
-        {'X': 202, 'Y': 116},
-        {'X': 303, 'Y': 116},
-        {'X': 404, 'Y': 116}
-      ],
+      'BACKGROUND_ROW_IMAGES': _game_bg_images,
+      'BACKGROUND_IMG_COORDINATES': _game_bg_img_coordinates,
       'SPRITE_IMG': 'images/Selector.png',
-      'SPRITE_IMG_Y': 130,
+      'SPRITE_IMG_Y': _game_sprite_img_y,
 
     },
     // Game Objects constants
@@ -122,7 +171,7 @@ CONSTANTS = function(){
     },
     // Enemy Constants
     'ENEMY': {
-      'CANVAS_WIDTH': 505,
+      'CANVAS_WIDTH': _canvasWidth,
       'MIN_SPEED': 100,
       'SPEED_VARIATION': 300,
       'X_INITIAL_OFFSET': -101,
@@ -292,4 +341,4 @@ CONSTANTS = function(){
     }
   };
 
-}();
+})();

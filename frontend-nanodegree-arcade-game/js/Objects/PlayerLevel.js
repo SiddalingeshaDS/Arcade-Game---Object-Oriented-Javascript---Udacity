@@ -56,7 +56,7 @@ PlayerLevel.prototype.initWithLevel = function(level){
   var allEnemies = [];
   var numberOfEnemies = levelSetupValues.numberOfEnemies;
   for(var i = 0 ; i < numberOfEnemies; i++){
-      allEnemies.push(new Enemy());
+      allEnemies.push(new Enemy(levelSetupValues.enemyMinSpeed, levelSetupValues.enemySpeedVariation));
   }
 
   var allGameObjects = [];

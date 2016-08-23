@@ -1,5 +1,14 @@
 var Init = (function(global){
-  CONSTANT_FUNCTION = ConstantWrapper();
+  
+ 
+  
+  _gameLevels = {
+    'easy':  Utils.gameLevel.easy,
+    'intermediate': Utils.gameLevel.intermediate,
+    'hard': Utils.gameLevel.intermediate
+  };
+  
+  CONSTANT_FUNCTION = ConstantWrapper(); 
   // instantiate the game
   game = new Game();
 

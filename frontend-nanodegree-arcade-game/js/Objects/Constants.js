@@ -164,7 +164,96 @@ function ConstantWrapper(params){
   var _p_lev_spriteX = _p_score_canvasWidth + _p_life_canvasWidth;
   var _p_lev_spriteY = -60;
   var _p_lev_spriteImg = params.levelSpriteImg || 'images/Star.png';
-  
+  var _p_lev_setup = params.levelSetup || [{
+          'enemyMinSpeed': 100,
+          'enemySpeedVariation': 300,
+          'numberOfEnemies': 1,
+          'numberOfBlueGems': 1,
+          'numberOfGreenGems': 0,
+          'numberOfOrangeGems': 0,
+          'numberOfRocks': 0
+        },
+        {
+          'enemyMinSpeed': 120,
+          'enemySpeedVariation': 330,
+          'numberOfEnemies': 2,
+          'numberOfBlueGems': 2,
+          'numberOfGreenGems': 0,
+          'numberOfOrangeGems': 0,
+          'numberOfRocks': 1
+        },
+        {
+          'enemyMinSpeed': 140,
+          'enemySpeedVariation': 360,
+          'numberOfEnemies': 3,
+          'numberOfBlueGems': 2,
+          'numberOfGreenGems': 1,
+          'numberOfOrangeGems': 0,
+          'numberOfRocks': 1
+        },
+        {
+          'enemyMinSpeed': 160,
+          'enemySpeedVariation': 390,
+          'numberOfEnemies': 3,
+          'numberOfBlueGems': 2,
+          'numberOfGreenGems': 1,
+          'numberOfOrangeGems': 1,
+          'numberOfRocks': 1
+        },
+        {
+          'enemyMinSpeed': 180,
+          'enemySpeedVariation': 420,
+          'numberOfEnemies': 3,
+          'numberOfBlueGems': 2,
+          'numberOfGreenGems': 2,
+          'numberOfOrangeGems': 1,
+          'numberOfRocks': 2
+        },
+        {
+          'enemyMinSpeed': 200,
+          'enemySpeedVariation': 450,
+          'numberOfEnemies': 5,
+          'numberOfBlueGems': 2,
+          'numberOfGreenGems': 2,
+          'numberOfOrangeGems': 1,
+          'numberOfRocks': 2
+        },
+        {
+          'enemyMinSpeed': 220,
+          'enemySpeedVariation': 480,
+          'numberOfEnemies': 5,
+          'numberOfBlueGems': 2,
+          'numberOfGreenGems': 2,
+          'numberOfOrangeGems': 1,
+          'numberOfRocks': 3
+        },
+        {
+          'enemyMinSpeed': 240,
+          'enemySpeedVariation': 510,
+          'numberOfEnemies': 5,
+          'numberOfBlueGems': 2,
+          'numberOfGreenGems': 2,
+          'numberOfOrangeGems': 1,
+          'numberOfRocks': 4
+        },
+        {
+          'enemyMinSpeed': 260,
+          'enemySpeedVariation': 540,
+          'numberOfEnemies': 6,
+          'numberOfBlueGems': 2,
+          'numberOfGreenGems': 2,
+          'numberOfOrangeGems': 1,
+          'numberOfRocks': 5
+        },
+        {
+          'enemyMinSpeed': 280,
+          'enemySpeedVariation': 570,
+          'numberOfEnemies': 8,
+          'numberOfBlueGems': 3,
+          'numberOfGreenGems': 2,
+          'numberOfOrangeGems': 1,
+          'numberOfRocks': 6
+        }];
   
   return function(key){
     return {
@@ -275,76 +364,7 @@ function ConstantWrapper(params){
     },
     // Player level constants
     'PLAYER_LEVEL': {
-      'LEVEL_SETUP': [{
-          'numberOfEnemies': 1,
-          'numberOfBlueGems': 1,
-          'numberOfGreenGems': 0,
-          'numberOfOrangeGems': 0,
-          'numberOfRocks': 0
-        },
-        {
-          'numberOfEnemies': 2,
-          'numberOfBlueGems': 2,
-          'numberOfGreenGems': 0,
-          'numberOfOrangeGems': 0,
-          'numberOfRocks': 1
-        },
-        {
-          'numberOfEnemies': 3,
-          'numberOfBlueGems': 2,
-          'numberOfGreenGems': 1,
-          'numberOfOrangeGems': 0,
-          'numberOfRocks': 1
-        },
-        {
-          'numberOfEnemies': 3,
-          'numberOfBlueGems': 2,
-          'numberOfGreenGems': 1,
-          'numberOfOrangeGems': 1,
-          'numberOfRocks': 1
-        },
-        {
-          'numberOfEnemies': 3,
-          'numberOfBlueGems': 2,
-          'numberOfGreenGems': 2,
-          'numberOfOrangeGems': 1,
-          'numberOfRocks': 2
-        },
-        {
-          'numberOfEnemies': 5,
-          'numberOfBlueGems': 2,
-          'numberOfGreenGems': 2,
-          'numberOfOrangeGems': 1,
-          'numberOfRocks': 2
-        },
-        {
-          'numberOfEnemies': 5,
-          'numberOfBlueGems': 2,
-          'numberOfGreenGems': 2,
-          'numberOfOrangeGems': 1,
-          'numberOfRocks': 3
-        },
-        {
-          'numberOfEnemies': 5,
-          'numberOfBlueGems': 2,
-          'numberOfGreenGems': 2,
-          'numberOfOrangeGems': 1,
-          'numberOfRocks': 4
-        },
-        {
-          'numberOfEnemies': 6,
-          'numberOfBlueGems': 2,
-          'numberOfGreenGems': 2,
-          'numberOfOrangeGems': 1,
-          'numberOfRocks': 5
-        },
-        {
-          'numberOfEnemies': 8,
-          'numberOfBlueGems': 3,
-          'numberOfGreenGems': 2,
-          'numberOfOrangeGems': 1,
-          'numberOfRocks': 6
-        }],
+      'LEVEL_SETUP': _p_lev_setup,
       'INITIAL_LEVEL': _p_defaultLevel,
       'LEVEL_RENDER_SETUP': {
         'FONT': "22px Arial",

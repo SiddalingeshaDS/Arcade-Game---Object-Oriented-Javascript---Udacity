@@ -3,7 +3,7 @@
 * @description Represents an Enemy
 * @constructor
 */
-var Enemy = function() {
+var Enemy = function(_enemyMinSpeed, _enemySpeedVar) {
   
     // get the constant values for the enemy
     this.CONSTANTS = CONSTANT_FUNCTION('ENEMY');
@@ -11,8 +11,8 @@ var Enemy = function() {
     // width of the canvas used to restart the enemy flow
     this.widthOfCanvas = this.CONSTANTS.CANVAS_WIDTH;
     // used to set the speed of the enemy
-    var minSpeed = this.CONSTANTS.MIN_SPEED;
-    var speedVariation = this.CONSTANTS.SPEED_VARIATION;
+    var minSpeed = _enemyMinSpeed || this.CONSTANTS.MIN_SPEED;
+    var speedVariation = _enemySpeedVar || this.CONSTANTS.SPEED_VARIATION;
     this.randomSpeedRatio =  minSpeed + Math.floor(speedVariation * Math.random(Date.now));
     
     // Initial variables to hold the size and step of the enemy positions

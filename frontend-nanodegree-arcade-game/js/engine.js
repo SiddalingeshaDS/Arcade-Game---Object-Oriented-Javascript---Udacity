@@ -34,6 +34,14 @@ var Engine = function(global) {
     canvas.height = CONSTANTS.CANVAS_MAIN.HEIGHT;
     scoreCanvas.width = CONSTANTS.CANVAS_SCORE.WIDTH;
     scoreCanvas.height = CONSTANTS.CANVAS_SCORE.HEIGHT;
+//    if(doc.body.hasChildNodes){
+//      var _tempCanvas = doc.body.getElementsByTagName('canvas');
+//      if(_tempCanvas.length > 0){
+//        for( var i = 0; i < _tempCanvas.length; i++){
+//          _tempCanvas[i].parentElement.removeChild(_tempCanvas[i]);
+//        }
+//      }
+//    }
     doc.body.appendChild(canvas);
     doc.body.appendChild(scoreCanvas);
   
